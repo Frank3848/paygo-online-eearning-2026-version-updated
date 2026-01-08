@@ -5,7 +5,7 @@ export const HelpButton = () => {
   return (
     <Button
       size="icon"
-      className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-accent hover:bg-accent/90 shadow-lg transition-transform hover:scale-105"
+      className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-accent hover:bg-accent/90 shadow-lg transition-transform hover:scale-105 animate-fade-in"
       onClick={() => {
         // Open help chat
         console.log('Help button clicked');
