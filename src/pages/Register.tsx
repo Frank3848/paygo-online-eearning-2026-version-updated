@@ -20,7 +20,7 @@ const Register = () => {
     e.preventDefault();
     console.log('Register:', formData);
     // Handle registration logic here
-    navigate('/login');
+    navigate('/dashboard');
   };
 
   const handleInputChange = (field: string, value: string) => {
