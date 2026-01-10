@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Gift, X, CreditCard, Phone, Wallet } from 'lucide-react';
+import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { HelpButton } from '@/components/HelpButton';
@@ -18,6 +18,7 @@ const onboardingSteps = [
         your account and can be withdrawn after purchasing a PAY ID.
       </>
     ),
+    showQuickLinks: false,
   },
   {
     icon: CreditCard,
@@ -30,6 +31,7 @@ const onboardingSteps = [
         <span className="font-semibold text-foreground">₦6,500</span>. This is a one-time purchase that unlocks all features of the app.
       </>
     ),
+    showQuickLinks: false,
   },
   {
     icon: Phone,
@@ -41,6 +43,7 @@ const onboardingSteps = [
         You can purchase airtime and data for all major networks directly from the app. Simply select the service, enter the phone number, choose your plan, and complete your purchase.
       </>
     ),
+    showQuickLinks: false,
   },
   {
     icon: Wallet,
@@ -52,6 +55,20 @@ const onboardingSteps = [
         To withdraw your funds, tap the "Withdraw" button on your dashboard, enter your bank details and PAY ID, and submit your request. Withdrawals are processed within 24 hours.
       </>
     ),
+    showQuickLinks: false,
+  },
+  {
+    icon: Zap,
+    iconBg: 'bg-orange-100',
+    iconColor: 'text-orange-500',
+    title: 'Earn More',
+    description: (
+      <>
+        Explore our app to discover ways to earn more! Refer friends to earn{' '}
+        <span className="font-semibold text-foreground">₦500</span> per referral, join our communities, and take advantage of special promotions.
+      </>
+    ),
+    showQuickLinks: true,
   },
 ];
 
@@ -70,6 +87,7 @@ const Home = () => {
 
   const currentStepData = onboardingSteps[currentStep - 1];
   const StepIcon = currentStepData?.icon || Gift;
+  const isLastStep = currentStep === totalSteps;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -140,16 +158,34 @@ const Home = () => {
                 {currentStepData?.title || 'Welcome'}
               </h3>
 
-              <p className="text-muted-foreground text-base leading-relaxed mb-8">
+              <p className="text-muted-foreground text-base leading-relaxed mb-6">
                 {currentStepData?.description || 'Welcome to PayGo!'}
               </p>
 
-              {/* Next Button */}
+              {/* Quick Links for Step 5 */}
+              {currentStepData?.showQuickLinks && (
+                <div className="flex justify-center gap-8 mb-6">
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-14 h-14 bg-pink-100 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-pink-500 rounded-full" />
+                    </div>
+                    <span className="text-sm text-muted-foreground">Communities</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center">
+                      <HelpCircle className="w-8 h-8 text-green-500" />
+                    </div>
+                    <span className="text-sm text-muted-foreground">Support</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Next/Get Started Button */}
               <Button 
                 onClick={handleNext}
                 className="w-full h-14 text-lg font-semibold rounded-xl bg-gradient-to-r from-orange-400 via-orange-500 to-pink-500 hover:from-orange-500 hover:via-orange-600 hover:to-pink-600 text-white shadow-lg"
               >
-                Next →
+                {isLastStep ? 'Get Started →' : 'Next →'}
               </Button>
             </div>
           </div>
