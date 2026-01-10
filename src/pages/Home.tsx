@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Gift, X, CreditCard } from 'lucide-react';
+import { Gift, X, CreditCard, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { HelpButton } from '@/components/HelpButton';
@@ -28,6 +28,17 @@ const onboardingSteps = [
       <>
         To withdraw funds, you'll need to purchase a PAY ID for{' '}
         <span className="font-semibold text-foreground">₦6,500</span>. This is a one-time purchase that unlocks all features of the app.
+      </>
+    ),
+  },
+  {
+    icon: Phone,
+    iconBg: 'bg-green-100',
+    iconColor: 'text-green-600',
+    title: 'Airtime & Data',
+    description: (
+      <>
+        You can purchase airtime and data for all major networks directly from the app. Simply select the service, enter the phone number, choose your plan, and complete your purchase.
       </>
     ),
   },
