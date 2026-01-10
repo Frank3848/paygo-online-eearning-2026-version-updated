@@ -1,9 +1,37 @@
 import { useState } from 'react';
-import { Gift, X } from 'lucide-react';
+import { Gift, X, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { HelpButton } from '@/components/HelpButton';
 import paygoLogo from '@/assets/paygo-logo.png';
+
+const onboardingSteps = [
+  {
+    icon: Gift,
+    iconBg: 'bg-purple-100',
+    iconColor: 'text-purple-600',
+    title: 'Welcome Bonus',
+    description: (
+      <>
+        You've received a welcome bonus of{' '}
+        <span className="font-semibold text-foreground">₦180,000</span>! This amount is already in 
+        your account and can be withdrawn after purchasing a PAY ID.
+      </>
+    ),
+  },
+  {
+    icon: CreditCard,
+    iconBg: 'bg-blue-100',
+    iconColor: 'text-blue-600',
+    title: 'Get Your PAY ID',
+    description: (
+      <>
+        To withdraw funds, you'll need to purchase a PAY ID for{' '}
+        <span className="font-semibold text-foreground">₦6,500</span>. This is a one-time purchase that unlocks all features of the app.
+      </>
+    ),
+  },
+];
 
 const Home = () => {
   const [showOnboarding, setShowOnboarding] = useState(true);
@@ -17,6 +45,9 @@ const Home = () => {
       setShowOnboarding(false);
     }
   };
+
+  const currentStepData = onboardingSteps[currentStep - 1];
+  const StepIcon = currentStepData?.icon || Gift;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -78,19 +109,17 @@ const Home = () => {
 
             {/* Content */}
             <div className="p-8 text-center">
-              {/* Gift Icon */}
-              <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Gift className="h-10 w-10 text-purple-600" />
+              {/* Step Icon */}
+              <div className={`w-20 h-20 ${currentStepData?.iconBg || 'bg-purple-100'} rounded-full flex items-center justify-center mx-auto mb-6`}>
+                <StepIcon className={`h-10 w-10 ${currentStepData?.iconColor || 'text-purple-600'}`} />
               </div>
 
               <h3 className="text-2xl font-bold text-foreground mb-4">
-                Welcome Bonus
+                {currentStepData?.title || 'Welcome'}
               </h3>
 
               <p className="text-muted-foreground text-base leading-relaxed mb-8">
-                You've received a welcome bonus of{' '}
-                <span className="font-semibold text-foreground">₦180,000</span>! This amount is already in 
-                your account and can be withdrawn after purchasing a PAY ID.
+                {currentStepData?.description || 'Welcome to PayGo!'}
               </p>
 
               {/* Next Button */}
