@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Gift, X, CreditCard, Phone } from 'lucide-react';
+import { Gift, X, CreditCard, Phone, Wallet } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { HelpButton } from '@/components/HelpButton';
@@ -39,6 +39,17 @@ const onboardingSteps = [
     description: (
       <>
         You can purchase airtime and data for all major networks directly from the app. Simply select the service, enter the phone number, choose your plan, and complete your purchase.
+      </>
+    ),
+  },
+  {
+    icon: Wallet,
+    iconBg: 'bg-orange-100',
+    iconColor: 'text-orange-600',
+    title: 'Withdrawal Process',
+    description: (
+      <>
+        To withdraw your funds, tap the "Withdraw" button on your dashboard, enter your bank details and PAY ID, and submit your request. Withdrawals are processed within 24 hours.
       </>
     ),
   },
