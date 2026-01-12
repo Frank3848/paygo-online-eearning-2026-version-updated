@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, Wifi, ArrowDownLeft, ArrowUpRight, Bell, User, LogOut, Headphones, Globe, Tv, FileText, Check } from 'lucide-react';
+import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, Wifi, ArrowDownLeft, ArrowUpRight, Bell, User, LogOut, Headphones, Globe, Tv, BarChart3, Archive, CircleDollarSign, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { HelpButton } from '@/components/HelpButton';
@@ -74,13 +74,13 @@ const onboardingSteps = [
 
 const quickActions = [
   { icon: CreditCard, label: 'Buy PAY ID', color: 'bg-amber-400' },
-  { icon: Tv, label: 'Watch', color: 'bg-blue-500' },
-  { icon: FileText, label: 'Airtime', color: 'bg-teal-500' },
-  { icon: FileText, label: 'Data', color: 'bg-slate-500' },
-  { icon: Headphones, label: 'Support', color: 'bg-purple-500' },
-  { icon: Globe, label: 'Group', color: 'bg-blue-400' },
-  { icon: Wallet, label: 'Earn More', color: 'bg-amber-500' },
-  { icon: User, label: 'Profile', color: 'bg-blue-600' },
+  { icon: Tv, label: 'Watch', color: 'bg-blue-600' },
+  { icon: BarChart3, label: 'Airtime', color: 'bg-teal-500' },
+  { icon: Archive, label: 'Data', color: 'bg-slate-400' },
+  { icon: Headphones, label: 'Support', color: 'bg-purple-600' },
+  { icon: Globe, label: 'Group', color: 'bg-blue-500' },
+  { icon: CircleDollarSign, label: 'Earn More', color: 'bg-amber-500' },
+  { icon: User, label: 'Profile', color: 'bg-blue-500' },
 ];
 
 const promotions = [
@@ -222,35 +222,42 @@ const Home = () => {
         <div className="mb-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Current Promotions</h3>
           
-          <div className="relative bg-gradient-to-r from-purple-600 to-purple-700 rounded-2xl overflow-hidden">
+          <div className="relative rounded-2xl overflow-hidden" style={{
+            background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%)'
+          }}>
+            {/* Background overlay pattern */}
+            <div className="absolute inset-0 opacity-20" style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+            }} />
+            
             {/* Promo Content */}
-            <div className="p-6 text-white min-h-[160px]">
-              <h4 className="text-2xl font-bold mb-2">{promotions[currentPromo].title}</h4>
-              <p className="text-white/90 text-sm mb-2">{promotions[currentPromo].subtitle}</p>
-              <p className="text-white/80 text-xs">{promotions[currentPromo].description}</p>
+            <div className="relative p-5 text-white min-h-[180px] flex flex-col justify-center">
+              <h4 className="text-3xl font-bold mb-2 text-pink-200">{promotions[currentPromo].title}</h4>
+              <p className="text-yellow-300 text-sm mb-2 font-medium">{promotions[currentPromo].subtitle}</p>
+              <p className="text-white/90 text-sm">{promotions[currentPromo].description}</p>
             </div>
 
             {/* Navigation Arrows */}
             <button 
               onClick={prevPromo}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/30 rounded-full flex items-center justify-center hover:bg-white/40"
             >
               <ChevronLeft className="h-5 w-5 text-white" />
             </button>
             <button 
               onClick={nextPromo}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/30 rounded-full flex items-center justify-center hover:bg-white/40"
             >
               <ChevronRight className="h-5 w-5 text-white" />
             </button>
 
             {/* Dots Indicator */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
               {promotions.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentPromo(index)}
-                  className={`w-2 h-2 rounded-full ${
+                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
                     index === currentPromo ? 'bg-white' : 'bg-white/40'
                   }`}
                 />
