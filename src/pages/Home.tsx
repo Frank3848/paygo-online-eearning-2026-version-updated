@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, Wifi, ArrowDownLeft, ArrowUpRight } from 'lucide-react';
+import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, Wifi, ArrowDownLeft, ArrowUpRight, Bell, User, LogOut, Headphones, Globe, Tv, FileText, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { HelpButton } from '@/components/HelpButton';
@@ -73,21 +73,34 @@ const onboardingSteps = [
 ];
 
 const quickActions = [
-  { icon: CreditCard, label: 'Pay ID', color: 'bg-blue-500' },
-  { icon: Wifi, label: 'Data', color: 'bg-purple-500' },
-  { icon: Phone, label: 'Airtime', color: 'bg-green-500' },
-  { icon: Users, label: 'Referral', color: 'bg-orange-500' },
+  { icon: CreditCard, label: 'Buy PAY ID', color: 'bg-amber-400' },
+  { icon: Tv, label: 'Watch', color: 'bg-blue-500' },
+  { icon: FileText, label: 'Airtime', color: 'bg-teal-500' },
+  { icon: FileText, label: 'Data', color: 'bg-slate-500' },
+  { icon: Headphones, label: 'Support', color: 'bg-purple-500' },
+  { icon: Globe, label: 'Group', color: 'bg-blue-400' },
+  { icon: Wallet, label: 'Earn More', color: 'bg-amber-500' },
+  { icon: User, label: 'Profile', color: 'bg-blue-600' },
 ];
 
-const transactions = [
-  { 
-    type: 'credit', 
-    title: 'Welcome Bonus', 
-    amount: '+₦180,000', 
-    date: 'Today, 10:30 AM',
-    icon: ArrowDownLeft,
-    iconBg: 'bg-green-100',
-    iconColor: 'text-green-600'
+const promotions = [
+  {
+    id: 1,
+    title: 'Transact & Win',
+    subtitle: 'Locations: Cheers Gold Crest Mall | Chrismar Hotel | Hot Spot Pub & Grill',
+    description: 'All customers who pay with PayGo in store will stand a chance to win great prizes.',
+  },
+  {
+    id: 2,
+    title: 'Refer & Earn',
+    subtitle: 'Share your referral code with friends',
+    description: 'Earn ₦500 for every friend that signs up and purchases a PAY ID.',
+  },
+  {
+    id: 3,
+    title: 'Weekly Rewards',
+    subtitle: 'Complete tasks to earn bonus',
+    description: 'Complete daily transactions to unlock weekly bonus rewards.',
   },
 ];
 
@@ -95,6 +108,7 @@ const Home = () => {
   const [showOnboarding, setShowOnboarding] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const [showBalance, setShowBalance] = useState(true);
+  const [currentPromo, setCurrentPromo] = useState(0);
   const totalSteps = 5;
 
   const handleNext = () => {
@@ -105,14 +119,27 @@ const Home = () => {
     }
   };
 
+  const nextPromo = () => {
+    setCurrentPromo((prev) => (prev + 1) % promotions.length);
+  };
+
+  const prevPromo = () => {
+    setCurrentPromo((prev) => (prev - 1 + promotions.length) % promotions.length);
+  };
+
   const currentStepData = onboardingSteps[currentStep - 1];
   const StepIcon = currentStepData?.icon || Gift;
   const isLastStep = currentStep === totalSteps;
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-gray-100 flex flex-col">
+      {/* Notification Banner */}
+      <div className="bg-red-500 text-white text-center py-2 px-4 text-sm">
+        Dear User, We're currently experiencing issues w...
+      </div>
+
       {/* Header */}
-      <header className="p-4 flex justify-center">
+      <header className="py-4 flex justify-center bg-white">
         <img 
           src={paygoLogo} 
           alt="PayGo Logo" 
@@ -123,21 +150,31 @@ const Home = () => {
       {/* Main Content - Dashboard */}
       <main className="flex-1 px-4 pb-24">
         {/* Balance Card */}
-        <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 rounded-2xl p-5 text-white mb-6">
-          <div className="flex items-center justify-between mb-4">
+        <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl p-5 text-white mb-6 shadow-lg">
+          <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-lg">👋</span>
+                <User className="h-5 w-5 text-white" />
               </div>
-              <p className="text-base font-medium">Hi, Frank 👋</p>
+              <div>
+                <p className="text-base font-medium">Hi, Frank 👋</p>
+                <p className="text-white/80 text-sm">Welcome back!</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Bell className="h-5 w-5 text-white/80" />
+              <button className="text-white text-sm font-medium flex items-center gap-1">
+                <LogOut className="h-4 w-4" />
+                Logout
+              </button>
             </div>
           </div>
           
           <div className="mb-1">
-            <p className="text-white/80 text-sm mb-1">Available Balance</p>
+            <p className="text-white/80 text-sm mb-1">Your Balance</p>
             <div className="flex items-center gap-3">
               <p className="text-3xl font-bold">
-                {showBalance ? '₦180,000' : '••••••'}
+                {showBalance ? '₦180,000.00' : '••••••••'}
               </p>
               <button 
                 onClick={() => setShowBalance(!showBalance)}
@@ -146,72 +183,80 @@ const Home = () => {
                 {showBalance ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
             </div>
+            <p className="text-white/80 text-sm mt-1">
+              Weekly Rewards: <span className="text-white font-medium">₦180,000.00</span>
+            </p>
           </div>
 
           <div className="flex gap-3 mt-4">
             <Button 
               variant="secondary" 
-              className="flex-1 bg-white/20 hover:bg-white/30 text-white border-0 rounded-xl h-11"
+              className="flex-1 bg-purple-500/50 hover:bg-purple-500/70 text-white border-0 rounded-full h-11"
             >
-              <Wallet className="h-4 w-4 mr-2" />
-              Withdraw
+              <Check className="h-4 w-4 mr-2" />
+              Upgrade
             </Button>
             <Button 
               variant="secondary" 
-              className="flex-1 bg-white/20 hover:bg-white/30 text-white border-0 rounded-xl h-11"
+              className="flex-1 bg-purple-500/50 hover:bg-purple-500/70 text-white border-0 rounded-full h-11"
             >
               <ArrowUpRight className="h-4 w-4 mr-2" />
-              Fund
+              Transfer
             </Button>
           </div>
         </div>
 
-        {/* Quick Actions */}
+        {/* Quick Actions - 8 items in 2 rows */}
         <div className="grid grid-cols-4 gap-4 mb-6">
           {quickActions.map((action, index) => (
             <button key={index} className="flex flex-col items-center gap-2">
-              <div className={`w-14 h-14 ${action.color} rounded-2xl flex items-center justify-center shadow-lg`}>
+              <div className={`w-14 h-14 ${action.color} rounded-xl flex items-center justify-center`}>
                 <action.icon className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xs text-muted-foreground font-medium">{action.label}</span>
+              <span className="text-xs text-gray-600 font-medium text-center">{action.label}</span>
             </button>
           ))}
         </div>
 
-        {/* Transaction History */}
-        <div className="bg-card rounded-2xl p-4 border">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-foreground">Recent Transactions</h3>
-            <button className="text-sm text-primary flex items-center gap-1">
-              See All <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
+        {/* Current Promotions */}
+        <div className="mb-6">
+          <h3 className="text-lg font-bold text-gray-900 mb-4">Current Promotions</h3>
+          
+          <div className="relative bg-gradient-to-r from-purple-600 to-purple-700 rounded-2xl overflow-hidden">
+            {/* Promo Content */}
+            <div className="p-6 text-white min-h-[160px]">
+              <h4 className="text-2xl font-bold mb-2">{promotions[currentPromo].title}</h4>
+              <p className="text-white/90 text-sm mb-2">{promotions[currentPromo].subtitle}</p>
+              <p className="text-white/80 text-xs">{promotions[currentPromo].description}</p>
+            </div>
 
-          {transactions.length > 0 ? (
-            <div className="space-y-3">
-              {transactions.map((tx, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-xl">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 ${tx.iconBg} rounded-full flex items-center justify-center`}>
-                      <tx.icon className={`h-5 w-5 ${tx.iconColor}`} />
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground">{tx.title}</p>
-                      <p className="text-xs text-muted-foreground">{tx.date}</p>
-                    </div>
-                  </div>
-                  <p className={`font-semibold ${tx.type === 'credit' ? 'text-green-600' : 'text-red-600'}`}>
-                    {tx.amount}
-                  </p>
-                </div>
+            {/* Navigation Arrows */}
+            <button 
+              onClick={prevPromo}
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30"
+            >
+              <ChevronLeft className="h-5 w-5 text-white" />
+            </button>
+            <button 
+              onClick={nextPromo}
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30"
+            >
+              <ChevronRight className="h-5 w-5 text-white" />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+              {promotions.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPromo(index)}
+                  className={`w-2 h-2 rounded-full ${
+                    index === currentPromo ? 'bg-white' : 'bg-white/40'
+                  }`}
+                />
               ))}
             </div>
-          ) : (
-            <div className="text-center py-8 text-muted-foreground">
-              <Wallet className="h-12 w-12 mx-auto mb-2 opacity-50" />
-              <p>No transactions yet</p>
-            </div>
-          )}
+          </div>
         </div>
       </main>
 
