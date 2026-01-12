@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle } from 'lucide-react';
+import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, Wifi, ArrowDownLeft, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { HelpButton } from '@/components/HelpButton';
@@ -72,9 +72,29 @@ const onboardingSteps = [
   },
 ];
 
+const quickActions = [
+  { icon: CreditCard, label: 'Pay ID', color: 'bg-blue-500' },
+  { icon: Wifi, label: 'Data', color: 'bg-purple-500' },
+  { icon: Phone, label: 'Airtime', color: 'bg-green-500' },
+  { icon: Users, label: 'Referral', color: 'bg-orange-500' },
+];
+
+const transactions = [
+  { 
+    type: 'credit', 
+    title: 'Welcome Bonus', 
+    amount: '+₦180,000', 
+    date: 'Today, 10:30 AM',
+    icon: ArrowDownLeft,
+    iconBg: 'bg-green-100',
+    iconColor: 'text-green-600'
+  },
+];
+
 const Home = () => {
   const [showOnboarding, setShowOnboarding] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
+  const [showBalance, setShowBalance] = useState(true);
   const totalSteps = 5;
 
   const handleNext = () => {
@@ -96,21 +116,102 @@ const Home = () => {
         <img 
           src={paygoLogo} 
           alt="PayGo Logo" 
-          className="h-16 w-auto object-contain"
+          className="h-12 w-auto object-contain"
         />
       </header>
 
-      {/* Main Content - Placeholder for actual home content */}
-      <main className="flex-1 px-4">
-        <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 rounded-2xl p-6 text-white">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-              <span className="text-2xl">👋</span>
-            </div>
-            <div>
-              <p className="text-lg font-semibold">Hi, Frank 👋</p>
+      {/* Main Content - Dashboard */}
+      <main className="flex-1 px-4 pb-24">
+        {/* Balance Card */}
+        <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 rounded-2xl p-5 text-white mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <span className="text-lg">👋</span>
+              </div>
+              <p className="text-base font-medium">Hi, Frank 👋</p>
             </div>
           </div>
+          
+          <div className="mb-1">
+            <p className="text-white/80 text-sm mb-1">Available Balance</p>
+            <div className="flex items-center gap-3">
+              <p className="text-3xl font-bold">
+                {showBalance ? '₦180,000' : '••••••'}
+              </p>
+              <button 
+                onClick={() => setShowBalance(!showBalance)}
+                className="text-white/80 hover:text-white"
+              >
+                {showBalance ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+              </button>
+            </div>
+          </div>
+
+          <div className="flex gap-3 mt-4">
+            <Button 
+              variant="secondary" 
+              className="flex-1 bg-white/20 hover:bg-white/30 text-white border-0 rounded-xl h-11"
+            >
+              <Wallet className="h-4 w-4 mr-2" />
+              Withdraw
+            </Button>
+            <Button 
+              variant="secondary" 
+              className="flex-1 bg-white/20 hover:bg-white/30 text-white border-0 rounded-xl h-11"
+            >
+              <ArrowUpRight className="h-4 w-4 mr-2" />
+              Fund
+            </Button>
+          </div>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-4 gap-4 mb-6">
+          {quickActions.map((action, index) => (
+            <button key={index} className="flex flex-col items-center gap-2">
+              <div className={`w-14 h-14 ${action.color} rounded-2xl flex items-center justify-center shadow-lg`}>
+                <action.icon className="h-6 w-6 text-white" />
+              </div>
+              <span className="text-xs text-muted-foreground font-medium">{action.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Transaction History */}
+        <div className="bg-card rounded-2xl p-4 border">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-foreground">Recent Transactions</h3>
+            <button className="text-sm text-primary flex items-center gap-1">
+              See All <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+
+          {transactions.length > 0 ? (
+            <div className="space-y-3">
+              {transactions.map((tx, index) => (
+                <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-xl">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-10 h-10 ${tx.iconBg} rounded-full flex items-center justify-center`}>
+                      <tx.icon className={`h-5 w-5 ${tx.iconColor}`} />
+                    </div>
+                    <div>
+                      <p className="font-medium text-foreground">{tx.title}</p>
+                      <p className="text-xs text-muted-foreground">{tx.date}</p>
+                    </div>
+                  </div>
+                  <p className={`font-semibold ${tx.type === 'credit' ? 'text-green-600' : 'text-red-600'}`}>
+                    {tx.amount}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-muted-foreground">
+              <Wallet className="h-12 w-12 mx-auto mb-2 opacity-50" />
+              <p>No transactions yet</p>
+            </div>
+          )}
         </div>
       </main>
 
