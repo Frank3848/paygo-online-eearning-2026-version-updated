@@ -76,8 +76,8 @@ const onboardingSteps = [
 const quickActions = [
   { icon: CreditCard, label: 'Buy PAY ID', color: 'bg-amber-400', route: '/buy-pay-id' },
   { icon: Play, label: 'Watch', color: 'bg-blue-600', route: null },
-  { icon: Signal, label: 'Airtime', color: 'bg-teal-500', route: null },
-  { icon: Package, label: 'Data', color: 'bg-slate-400', route: null },
+  { icon: Signal, label: 'Airtime', color: 'bg-teal-500', route: '/airtime' },
+  { icon: Package, label: 'Data', color: 'bg-slate-400', route: '/data' },
   { icon: Headphones, label: 'Support', color: 'bg-purple-600', route: null },
   { icon: Globe, label: 'Group', color: 'bg-blue-500', route: null },
   { icon: DollarSign, label: 'Earn More', color: 'bg-amber-500', route: null },
