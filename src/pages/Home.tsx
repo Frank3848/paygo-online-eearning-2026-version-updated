@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, Wifi, ArrowDownLeft, ArrowUpRight, Bell, User, LogOut, Headphones, Globe, Tv, Signal, Package, DollarSign, Check, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
@@ -73,14 +74,14 @@ const onboardingSteps = [
 ];
 
 const quickActions = [
-  { icon: CreditCard, label: 'Buy PAY ID', color: 'bg-amber-400' },
-  { icon: Play, label: 'Watch', color: 'bg-blue-600' },
-  { icon: Signal, label: 'Airtime', color: 'bg-teal-500' },
-  { icon: Package, label: 'Data', color: 'bg-slate-400' },
-  { icon: Headphones, label: 'Support', color: 'bg-purple-600' },
-  { icon: Globe, label: 'Group', color: 'bg-blue-500' },
-  { icon: DollarSign, label: 'Earn More', color: 'bg-amber-500' },
-  { icon: User, label: 'Profile', color: 'bg-blue-500' },
+  { icon: CreditCard, label: 'Buy PAY ID', color: 'bg-amber-400', route: '/buy-pay-id' },
+  { icon: Play, label: 'Watch', color: 'bg-blue-600', route: null },
+  { icon: Signal, label: 'Airtime', color: 'bg-teal-500', route: null },
+  { icon: Package, label: 'Data', color: 'bg-slate-400', route: null },
+  { icon: Headphones, label: 'Support', color: 'bg-purple-600', route: null },
+  { icon: Globe, label: 'Group', color: 'bg-blue-500', route: null },
+  { icon: DollarSign, label: 'Earn More', color: 'bg-amber-500', route: null },
+  { icon: User, label: 'Profile', color: 'bg-blue-500', route: null },
 ];
 
 const promotions = [
@@ -105,6 +106,7 @@ const promotions = [
 ];
 
 const Home = () => {
+  const navigate = useNavigate();
   const [showOnboarding, setShowOnboarding] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const [showBalance, setShowBalance] = useState(true);
@@ -209,7 +211,11 @@ const Home = () => {
         {/* Quick Actions - 8 items in 2 rows */}
         <div className="grid grid-cols-4 gap-4 mb-6">
           {quickActions.map((action, index) => (
-            <button key={index} className="flex flex-col items-center gap-2">
+            <button 
+              key={index} 
+              className="flex flex-col items-center gap-2"
+              onClick={() => action.route && navigate(action.route)}
+            >
               <div className={`w-14 h-14 ${action.color} rounded-xl flex items-center justify-center`}>
                 <action.icon className="h-6 w-6 text-white" />
               </div>
