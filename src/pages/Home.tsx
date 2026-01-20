@@ -107,7 +107,10 @@ const promotions = [
 
 const Home = () => {
   const navigate = useNavigate();
-  const [showOnboarding, setShowOnboarding] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(() => {
+    // Check if user has completed onboarding before
+    return localStorage.getItem('onboardingComplete') !== 'true';
+  });
   const [currentStep, setCurrentStep] = useState(1);
   const [showBalance, setShowBalance] = useState(true);
   const [currentPromo, setCurrentPromo] = useState(0);
@@ -118,7 +121,13 @@ const Home = () => {
       setCurrentStep(currentStep + 1);
     } else {
       setShowOnboarding(false);
+      localStorage.setItem('onboardingComplete', 'true');
     }
+  };
+
+  const handleCloseOnboarding = () => {
+    setShowOnboarding(false);
+    localStorage.setItem('onboardingComplete', 'true');
   };
 
   const nextPromo = () => {
@@ -274,13 +283,13 @@ const Home = () => {
       </main>
 
       {/* Onboarding Modal */}
-      <Dialog open={showOnboarding} onOpenChange={setShowOnboarding}>
+      <Dialog open={showOnboarding} onOpenChange={handleCloseOnboarding}>
         <DialogContent className="p-0 border-0 max-w-sm mx-auto overflow-hidden bg-transparent shadow-none">
           <div className="bg-white rounded-2xl overflow-hidden">
             {/* Gradient Header */}
             <div className="bg-gradient-to-r from-orange-400 via-pink-500 to-pink-600 p-6 relative">
               <button 
-                onClick={() => setShowOnboarding(false)}
+                onClick={handleCloseOnboarding}
                 className="absolute top-4 right-4 text-white/80 hover:text-white"
               >
                 <X className="h-6 w-6" />
