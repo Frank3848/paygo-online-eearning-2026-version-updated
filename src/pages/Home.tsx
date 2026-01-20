@@ -81,7 +81,7 @@ const quickActions = [
   { icon: Headphones, label: 'Support', color: 'bg-purple-600', route: null },
   { icon: Globe, label: 'Group', color: 'bg-blue-500', route: null },
   { icon: DollarSign, label: 'Earn More', color: 'bg-amber-500', route: null },
-  { icon: User, label: 'Profile', color: 'bg-blue-500', route: null },
+  { icon: User, label: 'Profile', color: 'bg-blue-500', route: '/profile' },
 ];
 
 const promotions = [
@@ -155,9 +155,12 @@ const Home = () => {
         <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl p-5 text-white mb-6 shadow-lg">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+              <button 
+                onClick={() => navigate('/profile')}
+                className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+              >
                 <User className="h-5 w-5 text-white" />
-              </div>
+              </button>
               <div>
                 <p className="text-base font-medium">Hi, Frank 👋</p>
                 <p className="text-white/80 text-sm">Welcome back!</p>
