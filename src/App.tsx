@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import BuyPayId from "./pages/BuyPayId";
 import Airtime from "./pages/Airtime";
 import Data from "./pages/Data";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/buy-pay-id" element={<BuyPayId />} />
           <Route path="/airtime" element={<Airtime />} />
           <Route path="/data" element={<Data />} />
+          <Route path="/profile" element={<Profile />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
