@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { HelpButton } from '@/components/HelpButton';
 import paygoLogo from '@/assets/paygo-logo.png';
+import promoTransactWin from '@/assets/promo-transact-win.jpg';
+import promoBasketball from '@/assets/promo-basketball.jpg';
+import promoAirtime from '@/assets/promo-airtime.jpg';
 import {
   CreditCardIcon,
   TvIcon,
@@ -97,21 +100,15 @@ const quickActions = [
 const promotions = [
   {
     id: 1,
-    title: 'Transact & Win',
-    subtitle: 'Locations: Cheers Gold Crest Mall | Chrismar Hotel | Hot Spot Pub & Grill',
-    description: 'All customers who pay with PayGo in store will stand a chance to win great prizes.',
+    image: promoTransactWin,
   },
   {
     id: 2,
-    title: 'Refer & Earn',
-    subtitle: 'Share your referral code with friends',
-    description: 'Earn ₦500 for every friend that signs up and purchases a PAY ID.',
+    image: promoBasketball,
   },
   {
     id: 3,
-    title: 'Weekly Rewards',
-    subtitle: 'Complete tasks to earn bonus',
-    description: 'Complete daily transactions to unlock weekly bonus rewards.',
+    image: promoAirtime,
   },
 ];
 
@@ -259,42 +256,38 @@ const Home = () => {
 
         {/* Current Promotions */}
         <div className="mb-6">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">Current Promotions</h3>
+          <h3 className="text-lg font-bold text-foreground mb-4">Current Promotions</h3>
           
-          <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-fuchsia-500">
-            {/* Background decorative circles */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
-            
-            {/* Promo Content */}
-            <div className="relative p-6 text-white min-h-[160px]">
-              <h4 className="text-2xl font-bold mb-2">{promotions[currentPromo].title}</h4>
-              <p className="text-yellow-300 text-xs mb-3 leading-relaxed">{promotions[currentPromo].subtitle}</p>
-              <p className="text-white/90 text-sm leading-relaxed">{promotions[currentPromo].description}</p>
-            </div>
+          <div className="relative rounded-2xl overflow-hidden">
+            {/* Promo Image */}
+            <img 
+              src={promotions[currentPromo].image} 
+              alt={`Promotion ${currentPromo + 1}`}
+              className="w-full h-48 object-cover transition-opacity duration-500"
+            />
 
             {/* Navigation Arrows */}
             <button 
               onClick={prevPromo}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/30 transition-colors"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/50 transition-colors"
             >
               <ChevronLeft className="h-5 w-5 text-white" />
             </button>
             <button 
               onClick={nextPromo}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/30 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/50 transition-colors"
             >
               <ChevronRight className="h-5 w-5 text-white" />
             </button>
 
             {/* Dots Indicator */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
               {promotions.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentPromo(index)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    index === currentPromo ? 'bg-white' : 'bg-white/40'
+                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                    index === currentPromo ? 'bg-white' : 'bg-white/50'
                   }`}
                 />
               ))}
