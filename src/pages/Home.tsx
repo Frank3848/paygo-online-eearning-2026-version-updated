@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, ArrowUpRight, Bell, LogOut, Check, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -140,6 +140,14 @@ const Home = () => {
     localStorage.setItem('onboardingComplete', 'true');
   };
 
+  // Auto-rotate promotions every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPromo((prev) => (prev + 1) % promotions.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   const nextPromo = () => {
     setCurrentPromo((prev) => (prev + 1) % promotions.length);
   };
@@ -164,7 +172,7 @@ const Home = () => {
         <img 
           src={paygoLogo} 
           alt="PayGo Logo" 
-          className="h-12 w-auto object-contain animate-swing origin-top"
+          className="h-12 w-auto object-contain animate-swing"
         />
       </header>
 
