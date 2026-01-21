@@ -1,10 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, Wifi, ArrowDownLeft, ArrowUpRight, Bell, User, LogOut, Headphones, Globe, Tv, Signal, Package, DollarSign, Check, Play } from 'lucide-react';
+import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, ArrowUpRight, Bell, LogOut, Check, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { HelpButton } from '@/components/HelpButton';
 import paygoLogo from '@/assets/paygo-logo.png';
+import {
+  CreditCardIcon,
+  TvIcon,
+  AirtimeChartIcon,
+  DataCabinetIcon,
+  HeadphonesIcon,
+  GlobeIcon,
+  MoneyBagIcon,
+  ProfileIcon
+} from '@/components/QuickActionIcons';
 
 const onboardingSteps = [
   {
@@ -74,14 +84,14 @@ const onboardingSteps = [
 ];
 
 const quickActions = [
-  { icon: CreditCard, label: 'Buy PAY ID', color: 'bg-amber-400', route: '/buy-pay-id' },
-  { icon: Play, label: 'Watch', color: 'bg-blue-600', route: null },
-  { icon: Signal, label: 'Airtime', color: 'bg-teal-500', route: '/airtime' },
-  { icon: Package, label: 'Data', color: 'bg-slate-400', route: '/data' },
-  { icon: Headphones, label: 'Support', color: 'bg-purple-600', route: null },
-  { icon: Globe, label: 'Group', color: 'bg-blue-500', route: null },
-  { icon: DollarSign, label: 'Earn More', color: 'bg-amber-500', route: null },
-  { icon: User, label: 'Profile', color: 'bg-blue-500', route: '/profile' },
+  { IconComponent: CreditCardIcon, label: 'Buy PAY ID', route: '/buy-pay-id' },
+  { IconComponent: TvIcon, label: 'Watch', route: null },
+  { IconComponent: AirtimeChartIcon, label: 'Airtime', route: '/airtime' },
+  { IconComponent: DataCabinetIcon, label: 'Data', route: '/data' },
+  { IconComponent: HeadphonesIcon, label: 'Support', route: null },
+  { IconComponent: GlobeIcon, label: 'Group', route: null },
+  { IconComponent: MoneyBagIcon, label: 'Earn More', route: null },
+  { IconComponent: ProfileIcon, label: 'Profile', route: '/profile' },
 ];
 
 const promotions = [
@@ -177,7 +187,10 @@ const Home = () => {
             </div>
             <div className="flex items-center gap-3">
               <Bell className="h-5 w-5 text-white/80" />
-              <button className="text-white text-sm font-medium flex items-center gap-1">
+              <button 
+                onClick={() => navigate('/register')}
+                className="text-white text-sm font-medium flex items-center gap-1"
+              >
                 <LogOut className="h-4 w-4" />
                 Logout
               </button>
@@ -228,8 +241,8 @@ const Home = () => {
               className="flex flex-col items-center gap-2"
               onClick={() => action.route && navigate(action.route)}
             >
-              <div className={`w-14 h-14 ${action.color} rounded-xl flex items-center justify-center`}>
-                <action.icon className="h-6 w-6 text-white" />
+              <div className="w-14 h-14 bg-slate-100 rounded-xl flex items-center justify-center shadow-sm">
+                <action.IconComponent />
               </div>
               <span className="text-xs text-gray-600 font-medium text-center">{action.label}</span>
             </button>
