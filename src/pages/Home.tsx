@@ -164,7 +164,7 @@ const Home = () => {
         <img 
           src={paygoLogo} 
           alt="PayGo Logo" 
-          className="h-12 w-auto object-contain"
+          className="h-12 w-auto object-contain animate-swing origin-top"
         />
       </header>
 
