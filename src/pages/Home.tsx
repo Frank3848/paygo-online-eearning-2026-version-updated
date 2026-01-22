@@ -159,11 +159,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* Notification Banner */}
-      <div className="bg-red-500 text-white text-center py-2 px-4 text-sm">
-        Dear User, We're currently experiencing issues w...
-      </div>
-
       {/* Header */}
       <header className="py-4 flex justify-center bg-white">
         <img 
@@ -258,12 +253,12 @@ const Home = () => {
         <div className="mb-6">
           <h3 className="text-lg font-bold text-foreground mb-4">Current Promotions</h3>
           
-          <div className="relative rounded-2xl overflow-hidden">
+          <div className="relative rounded-2xl overflow-hidden shadow-lg">
             {/* Promo Image */}
             <img 
               src={promotions[currentPromo].image} 
               alt={`Promotion ${currentPromo + 1}`}
-              className="w-full h-48 object-cover transition-opacity duration-500"
+              className="w-full aspect-[16/9] object-cover object-center"
             />
 
             {/* Navigation Arrows */}
