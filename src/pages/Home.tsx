@@ -253,12 +253,12 @@ const Home = () => {
         <div className="mb-6">
           <h3 className="text-lg font-bold text-foreground mb-4">Current Promotions</h3>
           
-          <div className="relative rounded-2xl overflow-hidden shadow-lg">
+          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-purple-500">
             {/* Promo Image */}
             <img 
               src={promotions[currentPromo].image} 
               alt={`Promotion ${currentPromo + 1}`}
-              className="w-full aspect-[16/9] object-cover object-center"
+              className="w-full h-auto object-contain"
             />
 
             {/* Navigation Arrows */}
