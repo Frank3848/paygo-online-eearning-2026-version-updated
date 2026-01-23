@@ -1,14 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
 import { HelpButton } from '@/components/HelpButton';
 
+interface UserProfile {
+  fullName: string;
+  email: string;
+  phone: string;
+  about: string;
+}
+
+const defaultProfile: UserProfile = {
+  fullName: "Frank",
+  email: "sureplug3848@gmail.com",
+  phone: "+234 801 234 5678",
+  about: "PayGo user since 2023"
+};
+
 const BuyPayId = () => {
   const navigate = useNavigate();
-  const [fullName, setFullName] = useState('Frank');
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
+
+  // Auto-fill from user profile on mount
+  useEffect(() => {
+    const savedProfile = localStorage.getItem('userProfile');
+    if (savedProfile) {
+      const parsed: UserProfile = JSON.parse(savedProfile);
+      setFullName(parsed.fullName || defaultProfile.fullName);
+      setEmail(parsed.email || defaultProfile.email);
+    } else {
+      setFullName(defaultProfile.fullName);
+      setEmail(defaultProfile.email);
+    }
+  }, []);
 
   const handlePay = () => {
     if (!fullName.trim() || !email.trim()) {
