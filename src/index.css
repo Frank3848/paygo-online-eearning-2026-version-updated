@@ -80,6 +80,18 @@
     /* Chat widget */
     --chat-button: 270 60% 55%;
     --chat-button-foreground: 0 0% 100%;
+
+    /* PayGo specific tokens (Buy PAY ID flow) */
+    --paygo-purple: 273 82% 56%;
+    --paygo-purple-foreground: 0 0% 100%;
+
+    --paygo-note: 36 100% 92%;
+    --paygo-note-border: 32 90% 76%;
+    --paygo-note-foreground: 24 55% 25%;
+
+    --paygo-info: 214 88% 90%;
+    --paygo-info-border: 214 70% 78%;
+    --paygo-info-foreground: 224 44% 24%;
   }
 
   .dark {
@@ -126,6 +138,18 @@
 
     --chat-button: 270 60% 60%;
     --chat-button-foreground: 0 0% 100%;
+
+    /* PayGo specific tokens (Buy PAY ID flow) */
+    --paygo-purple: 273 82% 62%;
+    --paygo-purple-foreground: 0 0% 100%;
+
+    --paygo-note: 36 45% 18%;
+    --paygo-note-border: 32 60% 35%;
+    --paygo-note-foreground: 36 100% 92%;
+
+    --paygo-info: 214 40% 18%;
+    --paygo-info-border: 214 55% 34%;
+    --paygo-info-foreground: 214 88% 90%;
   }
 }
 
