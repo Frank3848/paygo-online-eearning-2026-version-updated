@@ -9,25 +9,22 @@ const BuyPayId = () => {
   const navigate = useNavigate();
   const [fullName, setFullName] = useState('Frank');
   const [email, setEmail] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
 
   const handlePay = () => {
     if (!fullName.trim() || !email.trim()) {
       return;
     }
     
-    setIsProcessing(true);
-    // Simulate payment processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      alert('Payment initiated! This would connect to actual payment gateway.');
-    }, 2000);
+    // Navigate to preparing payment screen with user data
+    navigate('/buy-pay-id/preparing', { 
+      state: { fullName, email, amount: 6500 } 
+    });
   };
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Purple Header */}
-      <header className="bg-purple-600 px-4 py-5">
+      <header className="bg-[hsl(var(--paygo-purple))] px-4 py-4">
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigate('/home')}
@@ -40,22 +37,22 @@ const BuyPayId = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 px-5 py-6">
+      <main className="flex-1 px-5 py-6 bg-[#f8f9fb]">
         {/* Amount Field */}
-        <div className="mb-6">
-          <label className="block text-lg font-semibold text-gray-900 mb-3">
+        <div className="mb-5">
+          <label className="block text-base font-semibold text-gray-900 mb-2">
             Amount
           </label>
           <Input
             value="₦6,500"
             disabled
-            className="h-14 text-lg text-gray-400 bg-gray-50 border-gray-200 rounded-xl"
+            className="h-14 text-lg text-gray-400 bg-white border-gray-200 rounded-xl"
           />
         </div>
 
         {/* Full Name Field */}
-        <div className="mb-6">
-          <label className="block text-lg font-semibold text-gray-900 mb-3">
+        <div className="mb-5">
+          <label className="block text-base font-semibold text-gray-900 mb-2">
             Full Name
           </label>
           <Input
@@ -67,8 +64,8 @@ const BuyPayId = () => {
         </div>
 
         {/* Email Field */}
-        <div className="mb-8">
-          <label className="block text-lg font-semibold text-gray-900 mb-3">
+        <div className="mb-6">
+          <label className="block text-base font-semibold text-gray-900 mb-2">
             Your Email Address
           </label>
           <Input
@@ -83,17 +80,10 @@ const BuyPayId = () => {
         {/* Pay Button */}
         <Button 
           onClick={handlePay}
-          disabled={!fullName.trim() || !email.trim() || isProcessing}
-          className="w-full h-14 text-lg font-semibold rounded-xl bg-purple-600 hover:bg-purple-700 text-white shadow-lg disabled:opacity-50"
+          disabled={!fullName.trim() || !email.trim()}
+          className="w-full h-14 text-lg font-semibold rounded-xl bg-[hsl(var(--paygo-purple))] hover:bg-[hsl(273,82%,50%)] text-white shadow-lg disabled:opacity-50"
         >
-          {isProcessing ? (
-            <span className="flex items-center gap-2">
-              <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              Processing...
-            </span>
-          ) : (
-            'Pay'
-          )}
+          Pay
         </Button>
 
         {/* Footer Text */}

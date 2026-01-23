@@ -8,6 +8,10 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import BuyPayId from "./pages/BuyPayId";
+import BuyPayIdPreparing from "./pages/BuyPayIdPreparing";
+import BuyPayIdPayment from "./pages/BuyPayIdPayment";
+import BuyPayIdConfirming from "./pages/BuyPayIdConfirming";
+import BuyPayIdFailed from "./pages/BuyPayIdFailed";
 import Airtime from "./pages/Airtime";
 import Data from "./pages/Data";
 import Profile from "./pages/Profile";
@@ -27,6 +31,10 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/home" element={<Home />} />
           <Route path="/buy-pay-id" element={<BuyPayId />} />
+          <Route path="/buy-pay-id/preparing" element={<BuyPayIdPreparing />} />
+          <Route path="/buy-pay-id/payment" element={<BuyPayIdPayment />} />
+          <Route path="/buy-pay-id/confirming" element={<BuyPayIdConfirming />} />
+          <Route path="/buy-pay-id/failed" element={<BuyPayIdFailed />} />
           <Route path="/airtime" element={<Airtime />} />
           <Route path="/data" element={<Data />} />
           <Route path="/profile" element={<Profile />} />
