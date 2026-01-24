@@ -91,9 +91,9 @@ const quickActions = [
   { IconComponent: TvIcon, label: 'Watch', route: null },
   { IconComponent: AirtimeChartIcon, label: 'Airtime', route: '/airtime' },
   { IconComponent: DataCabinetIcon, label: 'Data', route: '/data' },
-  { IconComponent: HeadphonesIcon, label: 'Support', route: null },
-  { IconComponent: GlobeIcon, label: 'Group', route: null },
-  { IconComponent: MoneyBagIcon, label: 'Earn More', route: null },
+  { IconComponent: HeadphonesIcon, label: 'Support', route: '/support' },
+  { IconComponent: GlobeIcon, label: 'Group', route: '/communities' },
+  { IconComponent: MoneyBagIcon, label: 'Earn More', route: '/earn-more' },
   { IconComponent: ProfileIcon, label: 'Profile', route: '/profile' },
 ];
 

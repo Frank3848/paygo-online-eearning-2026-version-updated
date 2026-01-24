@@ -15,6 +15,9 @@ import BuyPayIdFailed from "./pages/BuyPayIdFailed";
 import Airtime from "./pages/Airtime";
 import Data from "./pages/Data";
 import Profile from "./pages/Profile";
+import Communities from "./pages/Communities";
+import Support from "./pages/Support";
+import EarnMore from "./pages/EarnMore";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +41,9 @@ const App = () => (
           <Route path="/airtime" element={<Airtime />} />
           <Route path="/data" element={<Data />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/communities" element={<Communities />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/earn-more" element={<EarnMore />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
