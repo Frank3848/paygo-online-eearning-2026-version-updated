@@ -18,6 +18,7 @@ import Profile from "./pages/Profile";
 import Communities from "./pages/Communities";
 import Support from "./pages/Support";
 import EarnMore from "./pages/EarnMore";
+import Watch from "./pages/Watch";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/communities" element={<Communities />} />
           <Route path="/support" element={<Support />} />
           <Route path="/earn-more" element={<EarnMore />} />
+          <Route path="/watch" element={<Watch />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

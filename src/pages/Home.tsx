@@ -88,7 +88,7 @@ const onboardingSteps = [
 
 const quickActions = [
   { IconComponent: CreditCardIcon, label: 'Buy PAY ID', route: '/buy-pay-id' },
-  { IconComponent: TvIcon, label: 'Watch', route: null },
+  { IconComponent: TvIcon, label: 'Watch', route: '/watch' },
   { IconComponent: AirtimeChartIcon, label: 'Airtime', route: '/airtime' },
   { IconComponent: DataCabinetIcon, label: 'Data', route: '/data' },
   { IconComponent: HeadphonesIcon, label: 'Support', route: '/support' },
