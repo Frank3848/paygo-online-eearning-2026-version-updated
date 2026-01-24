@@ -29,6 +29,10 @@ const BuyPayIdPayment = () => {
   };
 
   const handleConfirmTransfer = () => {
+    if (!uploadedFile) {
+      toast.error('Please upload your payment receipt before confirming');
+      return;
+    }
     navigate('/buy-pay-id/confirming', { 
       state: { fullName, email, amount } 
     });
