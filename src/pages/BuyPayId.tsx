@@ -49,7 +49,7 @@ const BuyPayId = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Purple Header */}
       <header className="bg-[hsl(var(--paygo-purple))] px-4 py-4">
         <div className="flex items-center gap-4">
@@ -64,35 +64,35 @@ const BuyPayId = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 px-5 py-6 bg-[#f8f9fb]">
+      <main className="flex-1 px-5 py-6 bg-gray-50">
         {/* Amount Field */}
         <div className="mb-5">
-          <label className="block text-base font-semibold text-gray-900 mb-2">
+          <label className="block text-base font-semibold text-foreground mb-2">
             Amount
           </label>
           <Input
             value="₦6,500"
             disabled
-            className="h-14 text-lg text-gray-400 bg-white border-gray-200 rounded-xl"
+            className="h-14 text-lg text-muted-foreground bg-white border-gray-200 rounded-xl"
           />
         </div>
 
         {/* Full Name Field */}
         <div className="mb-5">
-          <label className="block text-base font-semibold text-gray-900 mb-2">
+          <label className="block text-base font-semibold text-foreground mb-2">
             Full Name
           </label>
           <Input
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             placeholder="Enter your full name"
-            className="h-14 text-lg text-gray-900 bg-white border-gray-200 rounded-xl"
+            className="h-14 text-lg text-foreground bg-white border-gray-200 rounded-xl"
           />
         </div>
 
         {/* Email Field */}
         <div className="mb-6">
-          <label className="block text-base font-semibold text-gray-900 mb-2">
+          <label className="block text-base font-semibold text-foreground mb-2">
             Your Email Address
           </label>
           <Input
@@ -100,7 +100,7 @@ const BuyPayId = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email address"
-            className="h-14 text-lg text-gray-900 bg-white border-gray-200 rounded-xl"
+            className="h-14 text-lg text-foreground bg-white border-gray-200 rounded-xl"
           />
         </div>
 
@@ -108,17 +108,17 @@ const BuyPayId = () => {
         <Button 
           onClick={handlePay}
           disabled={!fullName.trim() || !email.trim()}
-          className="w-full h-14 text-lg font-semibold rounded-xl bg-[hsl(var(--paygo-purple))] hover:bg-[hsl(273,82%,50%)] text-white shadow-lg disabled:opacity-50"
+          className="w-full h-14 text-lg font-semibold rounded-xl bg-[hsl(var(--paygo-purple))] hover:bg-purple-700 text-white shadow-lg disabled:opacity-50"
         >
           Pay
         </Button>
 
         {/* Footer Text */}
         <div className="mt-8 text-center">
-          <p className="text-gray-500 text-sm mb-4">
+          <p className="text-muted-foreground text-sm mb-4">
             Your PAY ID will be displayed on the app once your payment is confirmed.
           </p>
-          <p className="text-gray-900 font-semibold">
+          <p className="text-foreground font-semibold">
             PayGo Financial Services LTD
           </p>
         </div>
