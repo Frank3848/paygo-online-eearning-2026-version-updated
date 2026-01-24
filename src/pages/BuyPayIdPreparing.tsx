@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { HelpButton } from '@/components/HelpButton';
@@ -7,17 +7,40 @@ const BuyPayIdPreparing = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { fullName, email, amount } = location.state || { fullName: '', email: '', amount: 6500 };
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Simulate preparing payment account
-    const timer = setTimeout(() => {
-      navigate('/buy-pay-id/payment', { 
-        state: { fullName, email, amount } 
-      });
-    }, 3000);
+    // Animate progress from 0 to 100 over 3 seconds
+    const duration = 3000;
+    const interval = 30;
+    const increment = (100 / duration) * interval;
 
-    return () => clearTimeout(timer);
-  }, [navigate, fullName, email, amount]);
+    const progressTimer = setInterval(() => {
+      setProgress(prev => {
+        const next = prev + increment;
+        if (next >= 100) {
+          clearInterval(progressTimer);
+          return 100;
+        }
+        return next;
+      });
+    }, interval);
+
+    return () => clearInterval(progressTimer);
+  }, []);
+
+  // Navigate only when progress reaches 100%
+  useEffect(() => {
+    if (progress >= 100) {
+      const navigateTimer = setTimeout(() => {
+        navigate('/buy-pay-id/payment', { 
+          state: { fullName, email, amount } 
+        });
+      }, 300); // Small delay after completion for visual feedback
+
+      return () => clearTimeout(navigateTimer);
+    }
+  }, [progress, navigate, fullName, email, amount]);
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -71,11 +94,11 @@ const BuyPayIdPreparing = () => {
           Please wait while we set up your payment...
         </p>
 
-        {/* Progress Bar */}
+        {/* Progress Bar - Now synchronized */}
         <div className="w-full max-w-xs h-2 bg-gray-200 rounded-full overflow-hidden">
           <div 
-            className="h-full bg-gray-800 rounded-full animate-pulse"
-            style={{ width: '50%' }}
+            className="h-full bg-gray-800 rounded-full transition-all duration-100 ease-linear"
+            style={{ width: `${progress}%` }}
           />
         </div>
 
