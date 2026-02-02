@@ -4,6 +4,7 @@ import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { HelpButton } from '@/components/HelpButton';
+import { UpgradeDrawer } from '@/components/UpgradeDrawer';
 import paygoLogo from '@/assets/paygo-logo.png';
 import promoTransactWin from '@/assets/promo-transact-win.jpg';
 import promoBasketball from '@/assets/promo-basketball.jpg';
@@ -121,6 +122,7 @@ const Home = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [showBalance, setShowBalance] = useState(true);
   const [currentPromo, setCurrentPromo] = useState(0);
+  const [showUpgradeDrawer, setShowUpgradeDrawer] = useState(false);
   const totalSteps = 5;
 
   const handleNext = () => {
@@ -219,6 +221,7 @@ const Home = () => {
             <Button 
               variant="secondary" 
               className="flex-1 bg-purple-500/50 hover:bg-purple-500/70 text-white border-0 rounded-full h-11"
+              onClick={() => setShowUpgradeDrawer(true)}
             >
               <Check className="h-4 w-4 mr-2" />
               Upgrade
@@ -371,6 +374,9 @@ const Home = () => {
 
       {/* Help Button */}
       <HelpButton />
+
+      {/* Upgrade Drawer */}
+      <UpgradeDrawer open={showUpgradeDrawer} onOpenChange={setShowUpgradeDrawer} />
     </div>
   );
 };
