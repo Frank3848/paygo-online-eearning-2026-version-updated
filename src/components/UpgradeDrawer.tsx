@@ -71,10 +71,10 @@ export const UpgradeDrawer = ({ open, onOpenChange }: UpgradeDrawerProps) => {
 
   const handleUpgrade = () => {
     if (selectedPlan) {
-      // Store selected plan and navigate to buy pay id
+      // Store selected plan and navigate to upgrade benefits
       localStorage.setItem('selectedPlan', selectedPlan);
       onOpenChange(false);
-      navigate('/buy-pay-id');
+      navigate('/upgrade/benefits', { state: { planId: selectedPlan } });
     }
   };
 
