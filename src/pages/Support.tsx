@@ -15,7 +15,7 @@ const Support = () => {
   };
 
   const handleWhatsApp = () => {
-    window.open('https://wa.me/2348058038037', '_blank');
+    window.open('https://whatsapp.com/channel/0029VbC26CNIyPtZ6INWW90U', '_blank');
   };
 
   return (
@@ -77,10 +77,6 @@ const Support = () => {
             <MessageCircle className="h-5 w-5" />
             Chat on WhatsApp
           </Button>
-
-          <p className="text-muted-foreground text-sm mt-4">
-            Contact: +234 ■■ ■■■ 8037
-          </p>
         </div>
       </main>
 

@@ -11,17 +11,17 @@ const EarnMore = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      {/* Header */}
-      <header className="flex items-center gap-4 p-4 border-b border-gray-200 bg-white">
-        <button onClick={() => navigate(-1)} className="p-1">
+    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-purple-500 to-pink-300 flex flex-col">
+      {/* Header - Transparent on gradient */}
+      <header className="flex items-center gap-4 p-4">
+        <button onClick={() => navigate('/home')} className="p-1">
           <ArrowLeft className="h-6 w-6 text-foreground" />
         </button>
         <h1 className="text-xl font-semibold text-foreground">Earn More</h1>
       </header>
 
-      {/* Content - Gradient Background matching screenshot */}
-      <main className="flex-1 bg-gradient-to-br from-purple-400 via-purple-500 to-orange-300 flex flex-col items-center justify-center px-8 py-16">
+      {/* Content - Full gradient background */}
+      <main className="flex-1 flex flex-col items-center justify-center px-8 py-16">
         {/* Main Title */}
         <h2 className="text-5xl font-bold text-white mb-8 drop-shadow-lg">BluePay</h2>
         
