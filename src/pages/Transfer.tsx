@@ -50,9 +50,19 @@ const Transfer = () => {
   const handleVerifyAccount = () => {
     if (accountNumber.length === 10 && selectedBank) {
       setIsVerifying(true);
-      // Simulate account verification
+      // Simulate account verification with realistic names
       setTimeout(() => {
-        setAccountName('JOHN DOE EXAMPLE');
+        const firstNames = ['ADEBAYO', 'CHINEDU', 'OLUWASEUN', 'EMEKA', 'FATIMA', 'NGOZI', 'IBRAHIM', 'OLUMIDE', 'AISHA', 'CHIOMA'];
+        const lastNames = ['OKONKWO', 'ADEYEMI', 'IBRAHIM', 'MOHAMMED', 'JOHNSON', 'WILLIAMS', 'OKAFOR', 'BELLO', 'ABUBAKAR', 'OLAYINKA'];
+        const middleNames = ['CHIBUEZE', 'OLUWAFEMI', 'AMINU', 'CHIAMAKA', 'FOLAKE', 'UCHENNA', 'YUSUF', 'ADAEZE', 'KELECHI', 'FUNMILAYO'];
+        
+        // Use account number digits to select names consistently
+        const firstIndex = parseInt(accountNumber[0]) % firstNames.length;
+        const lastIndex = parseInt(accountNumber[1]) % lastNames.length;
+        const middleIndex = parseInt(accountNumber[2]) % middleNames.length;
+        
+        const generatedName = `${lastNames[lastIndex]} ${firstNames[firstIndex]} ${middleNames[middleIndex]}`;
+        setAccountName(generatedName);
         setIsVerifying(false);
       }, 1500);
     }
