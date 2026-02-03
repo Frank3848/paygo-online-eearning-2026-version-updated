@@ -229,6 +229,7 @@ const Home = () => {
             <Button 
               variant="secondary" 
               className="flex-1 bg-purple-500/50 hover:bg-purple-500/70 text-white border-0 rounded-full h-11"
+              onClick={() => navigate('/transfer')}
             >
               <ArrowUpRight className="h-4 w-4 mr-2" />
               Transfer

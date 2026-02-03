@@ -23,6 +23,7 @@ import Communities from "./pages/Communities";
 import Support from "./pages/Support";
 import EarnMore from "./pages/EarnMore";
 import Watch from "./pages/Watch";
+import Transfer from "./pages/Transfer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -54,6 +55,7 @@ const App = () => (
           <Route path="/support" element={<Support />} />
           <Route path="/earn-more" element={<EarnMore />} />
           <Route path="/watch" element={<Watch />} />
+          <Route path="/transfer" element={<Transfer />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
