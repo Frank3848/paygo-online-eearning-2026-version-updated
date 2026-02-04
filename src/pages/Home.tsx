@@ -123,7 +123,28 @@ const Home = () => {
   const [showBalance, setShowBalance] = useState(true);
   const [currentPromo, setCurrentPromo] = useState(0);
   const [showUpgradeDrawer, setShowUpgradeDrawer] = useState(false);
+  const [balance, setBalance] = useState(() => {
+    const saved = localStorage.getItem('walletBalance');
+    return saved ? parseFloat(saved) : 180000;
+  });
   const totalSteps = 5;
+
+  // Initialize balance in localStorage if not set
+  useEffect(() => {
+    if (!localStorage.getItem('walletBalance')) {
+      localStorage.setItem('walletBalance', '180000');
+    }
+  }, []);
+
+  // Listen for balance changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const saved = localStorage.getItem('walletBalance');
+      if (saved) setBalance(parseFloat(saved));
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const handleNext = () => {
     if (currentStep < totalSteps) {
@@ -203,7 +224,7 @@ const Home = () => {
             <p className="text-white/80 text-sm mb-1">Your Balance</p>
             <div className="flex items-center gap-3">
               <p className="text-3xl font-bold">
-                {showBalance ? '₦180,000.00' : '••••••••'}
+                {showBalance ? `₦${balance.toLocaleString()}.00` : '••••••••'}
               </p>
               <button 
                 onClick={() => setShowBalance(!showBalance)}
