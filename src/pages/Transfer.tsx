@@ -323,15 +323,15 @@ const Transfer = () => {
 
       {/* Invalid PAY ID Dialog */}
       <AlertDialog open={showInvalidDialog} onOpenChange={setShowInvalidDialog}>
-        <AlertDialogContent className="max-w-sm mx-4">
+        <AlertDialogContent className="max-w-[320px] mx-auto rounded-2xl p-6">
           <AlertDialogTitle className="sr-only">Invalid PAY ID Code</AlertDialogTitle>
-          <AlertDialogDescription className="text-foreground text-base leading-relaxed">
+          <AlertDialogDescription className="text-foreground text-base leading-relaxed text-center">
             Invalid PAY ID Code. Please enter a valid PAY ID to proceed with withdrawal.
           </AlertDialogDescription>
-          <AlertDialogFooter>
+          <AlertDialogFooter className="justify-center sm:justify-center mt-4">
             <AlertDialogAction 
               onClick={() => setShowInvalidDialog(false)}
-              className="bg-transparent text-cyan-500 hover:bg-transparent hover:text-cyan-600 font-semibold"
+              className="bg-transparent text-teal-500 hover:bg-transparent hover:text-teal-600 font-semibold text-lg shadow-none"
             >
               OK
             </AlertDialogAction>
