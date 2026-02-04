@@ -136,10 +136,10 @@ const Transfer = () => {
 
   const renderBankTransfer = () => (
     <div className="space-y-5">
-      <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
-        <p className="text-orange-800 text-sm">
-          <span className="font-semibold">Note:</span> Bank transfers may take up to 24 hours to process. A fee of ₦50 applies to all transfers.
-        </p>
+      {/* Available Balance Card */}
+      <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl p-4 text-white">
+        <p className="text-sm opacity-90">Available Balance</p>
+        <p className="text-2xl font-bold">₦180,000.00</p>
       </div>
 
       <div className="space-y-2">
@@ -160,44 +160,34 @@ const Transfer = () => {
 
       <div className="space-y-2">
         <Label htmlFor="accountNumber" className="text-foreground font-medium">Account Number</Label>
-        <div className="relative">
-          <Input
-            id="accountNumber"
-            type="text"
-            placeholder="Enter 10-digit account number"
-            value={accountNumber}
-            onChange={(e) => {
-              const value = e.target.value.replace(/\D/g, '').slice(0, 10);
-              setAccountNumber(value);
-              setAccountName('');
-            }}
-            className="h-12 bg-white pr-20"
-            maxLength={10}
-          />
-          {accountNumber.length === 10 && selectedBank && !accountName && (
-            <Button
-              type="button"
-              size="sm"
-              onClick={handleVerifyAccount}
-              disabled={isVerifying}
-              className="absolute right-2 top-1/2 -translate-y-1/2 h-8 bg-purple-600 hover:bg-purple-700"
-            >
-              {isVerifying ? 'Verifying...' : 'Verify'}
-            </Button>
-          )}
-        </div>
+        <Input
+          id="accountNumber"
+          type="text"
+          placeholder="Enter account number"
+          value={accountNumber}
+          onChange={(e) => {
+            const value = e.target.value.replace(/\D/g, '').slice(0, 10);
+            setAccountNumber(value);
+          }}
+          className="h-12 bg-white"
+          maxLength={10}
+        />
       </div>
 
-      {accountName && (
-        <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-          <p className="text-green-800 text-sm">
-            <span className="font-semibold">Account Name:</span> {accountName}
-          </p>
-        </div>
-      )}
+      <div className="space-y-2">
+        <Label htmlFor="accountName" className="text-foreground font-medium">Account Name</Label>
+        <Input
+          id="accountName"
+          type="text"
+          placeholder="Enter account name"
+          value={accountName}
+          onChange={(e) => setAccountName(e.target.value.toUpperCase())}
+          className="h-12 bg-white"
+        />
+      </div>
 
       <div className="space-y-2">
-        <Label htmlFor="amount" className="text-foreground font-medium">Amount (₦)</Label>
+        <Label htmlFor="amount" className="text-foreground font-medium">Amount</Label>
         <Input
           id="amount"
           type="text"
@@ -209,15 +199,27 @@ const Transfer = () => {
           }}
           className="h-12 bg-white"
         />
-        <p className="text-xs text-muted-foreground">Available Balance: ₦180,000.00</p>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="payIdCode" className="text-foreground font-medium">PAY ID Code</Label>
+        <Input
+          id="payIdCode"
+          type="text"
+          placeholder="Enter PAY ID Code"
+          value={paygoId}
+          onChange={(e) => setPaygoId(e.target.value.toUpperCase())}
+          className="h-12 bg-white"
+        />
+        <p className="text-xs text-muted-foreground">Enter your PAY ID code to authorize withdrawal</p>
       </div>
 
       <Button
         onClick={handleTransfer}
-        disabled={!accountName || !amount}
+        disabled={!accountName || !amount || !selectedBank || !accountNumber}
         className="w-full h-14 text-lg font-semibold rounded-xl bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-lg mt-6"
       >
-        Transfer ₦{amount ? Number(amount).toLocaleString() : '0'}
+        Transfer Money
       </Button>
     </div>
   );
