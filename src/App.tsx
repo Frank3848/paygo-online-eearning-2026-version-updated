@@ -24,6 +24,8 @@ import Support from "./pages/Support";
 import EarnMore from "./pages/EarnMore";
 import Watch from "./pages/Watch";
 import Transfer from "./pages/Transfer";
+import TransferProcessing from "./pages/TransferProcessing";
+import TransferSuccess from "./pages/TransferSuccess";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -56,6 +58,8 @@ const App = () => (
           <Route path="/earn-more" element={<EarnMore />} />
           <Route path="/watch" element={<Watch />} />
           <Route path="/transfer" element={<Transfer />} />
+          <Route path="/transfer/processing" element={<TransferProcessing />} />
+          <Route path="/transfer/success" element={<TransferSuccess />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

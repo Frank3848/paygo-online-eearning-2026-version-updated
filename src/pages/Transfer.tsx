@@ -89,15 +89,16 @@ const Transfer = () => {
       }
     }
 
-    toast({
-      title: "Transfer Initiated",
-      description: "Your transfer request is being processed",
+    // Navigate to processing page
+    navigate('/transfer/processing', { 
+      state: { 
+        amount, 
+        accountName, 
+        selectedBank, 
+        accountNumber,
+        transferType 
+      } 
     });
-    
-    // Navigate back to home after transfer
-    setTimeout(() => {
-      navigate('/home');
-    }, 2000);
   };
 
   const renderTransferOptions = () => (
