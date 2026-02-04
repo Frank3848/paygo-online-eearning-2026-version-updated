@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Building2, Users, ChevronRight, Search } from 'lucide-react';
+import { ArrowLeft, Building2, Users, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,7 +11,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { useToast } from '@/hooks/use-toast';
+
+const VALID_PAY_ID_CODE = "PG66761866";
 
 const banks = [
   'Access Bank',
@@ -46,6 +56,11 @@ const Transfer = () => {
   const [paygoId, setPaygoId] = useState('');
   const [accountName, setAccountName] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
+  const [showInvalidDialog, setShowInvalidDialog] = useState(false);
+  const [balance] = useState(() => {
+    const saved = localStorage.getItem('walletBalance');
+    return saved ? parseFloat(saved) : 180000;
+  });
 
   const handleVerifyAccount = () => {
     if (accountNumber.length === 10 && selectedBank) {
@@ -78,6 +93,12 @@ const Transfer = () => {
         });
         return;
       }
+      
+      // Validate PAY ID Code
+      if (paygoId.toUpperCase() !== VALID_PAY_ID_CODE) {
+        setShowInvalidDialog(true);
+        return;
+      }
     } else if (transferType === 'paygo') {
       if (!paygoId || !amount) {
         toast({
@@ -88,6 +109,12 @@ const Transfer = () => {
         return;
       }
     }
+
+    // Deduct from balance in localStorage
+    const currentBalance = parseFloat(localStorage.getItem('walletBalance') || '180000');
+    const transferAmount = parseFloat(amount);
+    const newBalance = currentBalance - transferAmount;
+    localStorage.setItem('walletBalance', newBalance.toString());
 
     // Navigate to processing page
     navigate('/transfer/processing', { 
@@ -140,7 +167,7 @@ const Transfer = () => {
       {/* Available Balance Card */}
       <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl p-4 text-white">
         <p className="text-sm opacity-90">Available Balance</p>
-        <p className="text-2xl font-bold">₦180,000.00</p>
+        <p className="text-2xl font-bold">₦{balance.toLocaleString()}.00</p>
       </div>
 
       <div className="space-y-2">
@@ -258,7 +285,7 @@ const Transfer = () => {
           }}
           className="h-12 bg-white"
         />
-        <p className="text-xs text-muted-foreground">Available Balance: ₦180,000.00</p>
+        <p className="text-xs text-muted-foreground">Available Balance: ₦{balance.toLocaleString()}.00</p>
       </div>
 
       <Button
@@ -293,6 +320,24 @@ const Transfer = () => {
         {transferType === 'bank' && renderBankTransfer()}
         {transferType === 'paygo' && renderPaygoTransfer()}
       </main>
+
+      {/* Invalid PAY ID Dialog */}
+      <AlertDialog open={showInvalidDialog} onOpenChange={setShowInvalidDialog}>
+        <AlertDialogContent className="max-w-sm mx-4">
+          <AlertDialogTitle className="sr-only">Invalid PAY ID Code</AlertDialogTitle>
+          <AlertDialogDescription className="text-foreground text-base leading-relaxed">
+            Invalid PAY ID Code. Please enter a valid PAY ID to proceed with withdrawal.
+          </AlertDialogDescription>
+          <AlertDialogFooter>
+            <AlertDialogAction 
+              onClick={() => setShowInvalidDialog(false)}
+              className="bg-transparent text-cyan-500 hover:bg-transparent hover:text-cyan-600 font-semibold"
+            >
+              OK
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
