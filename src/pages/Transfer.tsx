@@ -20,6 +20,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useToast } from '@/hooks/use-toast';
+import { Loader2 } from 'lucide-react';
 
 const VALID_PAY_ID_CODE = "PG66761866";
 
@@ -57,6 +58,7 @@ const Transfer = () => {
   const [accountName, setAccountName] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
   const [showInvalidDialog, setShowInvalidDialog] = useState(false);
+  const [isVerifyingPayId, setIsVerifyingPayId] = useState(false);
   const [balance] = useState(() => {
     const saved = localStorage.getItem('walletBalance');
     return saved ? parseFloat(saved) : 180000;
@@ -96,7 +98,11 @@ const Transfer = () => {
       
       // Validate PAY ID Code
       if (paygoId.toUpperCase() !== VALID_PAY_ID_CODE) {
-        setShowInvalidDialog(true);
+        setIsVerifyingPayId(true);
+        setTimeout(() => {
+          setIsVerifyingPayId(false);
+          setShowInvalidDialog(true);
+        }, 2000);
         return;
       }
     } else if (transferType === 'paygo') {
@@ -244,10 +250,17 @@ const Transfer = () => {
 
       <Button
         onClick={handleTransfer}
-        disabled={!accountName || !amount || !selectedBank || !accountNumber}
+        disabled={!accountName || !amount || !selectedBank || !accountNumber || isVerifyingPayId}
         className="w-full h-14 text-lg font-semibold rounded-xl bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-lg mt-6"
       >
-        Transfer Money
+        {isVerifyingPayId ? (
+          <>
+            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+            Verifying...
+          </>
+        ) : (
+          'Transfer Money'
+        )}
       </Button>
     </div>
   );
