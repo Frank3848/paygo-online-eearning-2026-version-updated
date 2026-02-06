@@ -12,9 +12,9 @@ const BuyPayIdPayment = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const accountNumber = '5569742888';
-  const bankName = 'moniepoint mfb';
-  const accountName = 'SUNDAY LIBERTY';
+  const accountNumber = '1002550677';
+  const bankName = 'Sparkle';
+  const accountName = 'Frank Joseph';
 
   const handleCopyAccountNumber = () => {
     navigator.clipboard.writeText(accountNumber);
