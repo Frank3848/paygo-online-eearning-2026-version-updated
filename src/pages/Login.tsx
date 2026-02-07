@@ -33,13 +33,13 @@ const Login = () => {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center px-4 pb-20">
-        <div className="animate-[slide-in-right_0.5s_ease-out]">
-          {/* Logo */}
-          <div className="mb-8 flex justify-center">
+        <div className="w-full max-w-md animate-[slide-in-right_0.5s_ease-out]">
+          {/* Logo - Right aligned */}
+          <div className="mb-8 flex justify-end">
             <img 
               src={paygoLogo} 
               alt="PayGo Logo" 
-              className="h-20 w-auto object-contain"
+              className="h-20 w-auto object-contain rounded-xl"
             />
           </div>
 
@@ -74,19 +74,10 @@ const Login = () => {
             </Button>
           </form>
 
-          {/* Forgot Password Link */}
-          <Link 
-            to="/forgot-password" 
-            className="mt-4 text-sm text-link font-medium hover:underline block text-center"
-          >
-            Forgot Password?
-          </Link>
-
           {/* Register Link */}
-          <p className="mt-6 text-sm text-muted-foreground text-center">
-            Don't have an account?{' '}
+          <p className="mt-6 text-sm text-center">
             <Link to="/" className="text-link font-medium hover:underline">
-              Register
+              Don't have an account? Register
             </Link>
           </p>
         </div>

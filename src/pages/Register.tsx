@@ -36,13 +36,13 @@ const Register = () => {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center px-4 pb-20">
-        <div className="animate-[slide-in-right_0.5s_ease-out]">
-          {/* Logo */}
-          <div className="mb-8 flex justify-center">
+        <div className="w-full max-w-md animate-[slide-in-right_0.5s_ease-out]">
+          {/* Logo - Left aligned */}
+          <div className="mb-8 flex justify-start">
             <img 
               src={paygoLogo} 
               alt="PayGo Logo" 
-              className="h-20 w-auto object-contain"
+              className="h-20 w-auto object-contain rounded-xl"
             />
           </div>
 
@@ -91,10 +91,9 @@ const Register = () => {
           </form>
 
           {/* Login Link */}
-          <p className="mt-6 text-sm text-muted-foreground text-center">
-            Already have an account?{' '}
+          <p className="mt-6 text-sm text-center">
             <Link to="/login" className="text-link font-medium hover:underline">
-              Login
+              Already have an account? Login
             </Link>
           </p>
         </div>
