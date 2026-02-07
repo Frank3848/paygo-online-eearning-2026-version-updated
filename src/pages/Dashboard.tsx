@@ -13,7 +13,7 @@ const Dashboard = () => {
         <img 
           src={paygoLogo} 
           alt="PayGo Logo" 
-          className="h-20 w-auto object-contain"
+          className="h-20 w-auto object-contain rounded-xl animate-swing"
         />
       </header>
 
