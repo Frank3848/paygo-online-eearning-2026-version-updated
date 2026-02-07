@@ -35,11 +35,11 @@ const Login = () => {
       <main className="flex-1 flex flex-col items-center justify-center px-4 pb-20">
         <div className="w-full max-w-md animate-[slide-in-right_0.5s_ease-out]">
           {/* Logo - Right aligned */}
-          <div className="mb-8 flex justify-end">
+          <div className="mb-8">
             <img 
               src={paygoLogo} 
               alt="PayGo Logo" 
-              className="h-20 w-auto object-contain rounded-xl"
+              className="h-20 w-auto object-contain rounded-xl animate-swing"
             />
           </div>
 
