@@ -98,17 +98,25 @@ export default {
         },
         "swing": {
           "0%": {
-            transform: "translateX(calc(100vw - 100% - 2rem))",
+            transform: "translateX(calc(100vw + 100%))",
+            opacity: "0",
+          },
+          "5%": {
+            opacity: "1",
+          },
+          "95%": {
+            opacity: "1",
           },
           "100%": {
-            transform: "translateX(0px)",
+            transform: "translateX(-100%)",
+            opacity: "0",
           },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "swing": "swing 3s ease-in-out infinite alternate",
+        "swing": "swing 4s ease-in-out infinite",
       },
     },
   },
