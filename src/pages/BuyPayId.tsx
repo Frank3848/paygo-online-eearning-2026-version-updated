@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
-import { HelpButton } from '@/components/HelpButton';
+
 
 interface UserProfile {
   fullName: string;
@@ -124,8 +124,6 @@ const BuyPayId = () => {
         </div>
       </main>
 
-      {/* Help Button */}
-      <HelpButton />
     </div>
   );
 };

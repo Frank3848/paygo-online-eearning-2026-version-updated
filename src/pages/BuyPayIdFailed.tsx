@@ -1,7 +1,7 @@
 import { ArrowLeft, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { HelpButton } from '@/components/HelpButton';
+
 
 const BuyPayIdFailed = () => {
   const navigate = useNavigate();
@@ -85,8 +85,6 @@ const BuyPayIdFailed = () => {
         </div>
       </main>
 
-      {/* Help Button */}
-      <HelpButton />
     </div>
   );
 };

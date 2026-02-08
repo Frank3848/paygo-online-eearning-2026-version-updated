@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Copy, Upload, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { HelpButton } from '@/components/HelpButton';
+
 import { toast } from 'sonner';
 
 const UpgradePayment = () => {
@@ -163,8 +163,6 @@ const UpgradePayment = () => {
         </Button>
       </main>
 
-      {/* Help Button */}
-      <HelpButton />
     </div>
   );
 };

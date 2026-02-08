@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { CountrySelect } from '@/components/CountrySelect';
 import { NeedHelp } from '@/components/NeedHelp';
-import { HelpButton } from '@/components/HelpButton';
+
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import paygoLogo from '@/assets/paygo-logo.png';
@@ -226,9 +226,6 @@ const Register = () => {
           </p>
         </div>
       </main>
-
-      {/* Help Button */}
-      <HelpButton />
     </div>
   );
 };

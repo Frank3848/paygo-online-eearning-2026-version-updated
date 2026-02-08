@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Zap, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { HelpButton } from '@/components/HelpButton';
+
 
 const planDetails: Record<string, {
   name: string;
@@ -107,8 +107,6 @@ const UpgradeBenefits = () => {
         </p>
       </main>
 
-      {/* Help Button */}
-      <HelpButton />
     </div>
   );
 };

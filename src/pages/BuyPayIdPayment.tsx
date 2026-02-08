@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { ArrowLeft, Copy, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { HelpButton } from '@/components/HelpButton';
+
 import { toast } from 'sonner';
 
 const BuyPayIdPayment = () => {
@@ -167,8 +167,6 @@ const BuyPayIdPayment = () => {
         </p>
       </div>
 
-      {/* Help Button */}
-      <HelpButton />
     </div>
   );
 };
