@@ -3,7 +3,7 @@ import { ArrowLeft, Play, Clock, Star, Tv, Film, Radio, TrendingUp, Lock } from 
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { HelpButton } from '@/components/HelpButton';
+
 
 const categories = [
   { icon: Tv, label: 'Live TV', color: 'bg-red-500' },
@@ -195,7 +195,7 @@ const Watch = () => {
         )}
       </main>
 
-      <HelpButton />
+      
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { HelpButton } from '@/components/HelpButton';
+
 
 const BuyPayIdPreparing = () => {
   const navigate = useNavigate();
@@ -110,8 +110,6 @@ const BuyPayIdPreparing = () => {
         </div>
       </main>
 
-      {/* Help Button */}
-      <HelpButton />
     </div>
   );
 };

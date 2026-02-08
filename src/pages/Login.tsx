@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { NeedHelp } from '@/components/NeedHelp';
-import { HelpButton } from '@/components/HelpButton';
+
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import paygoLogo from '@/assets/paygo-logo.png';
@@ -169,9 +169,6 @@ const Login = () => {
           </p>
         </div>
       </main>
-
-      {/* Help Button */}
-      <HelpButton />
     </div>
   );
 };

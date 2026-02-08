@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { XCircle, RefreshCw, MessageCircle, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { HelpButton } from '@/components/HelpButton';
+
 
 const UpgradeFailed = () => {
   const navigate = useNavigate();
@@ -59,8 +59,6 @@ const UpgradeFailed = () => {
         </div>
       </main>
 
-      {/* Help Button */}
-      <HelpButton />
     </div>
   );
 };

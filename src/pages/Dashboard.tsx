@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { HelpButton } from '@/components/HelpButton';
+
 import paygoLogo from '@/assets/paygo-logo.png';
 
 const Dashboard = () => {
@@ -44,8 +44,6 @@ const Dashboard = () => {
         </div>
       </main>
 
-      {/* Help Button */}
-      <HelpButton />
     </div>
   );
 };

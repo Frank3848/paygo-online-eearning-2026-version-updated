@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, ArrowUpRight, Bell, LogOut, Check, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { HelpButton } from '@/components/HelpButton';
+
 import { UpgradeDrawer } from '@/components/UpgradeDrawer';
 import paygoLogo from '@/assets/paygo-logo.png';
 import promoTransactWin from '@/assets/promo-transact-win.jpg';
@@ -394,8 +394,6 @@ const Home = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Help Button */}
-      <HelpButton />
 
       {/* Upgrade Drawer */}
       <UpgradeDrawer open={showUpgradeDrawer} onOpenChange={setShowUpgradeDrawer} />

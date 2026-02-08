@@ -1,7 +1,7 @@
 import { ArrowLeft, MessageCircle, Send } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { HelpButton } from '@/components/HelpButton';
+
 
 const Communities = () => {
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ const Communities = () => {
         </div>
       </main>
 
-      <HelpButton />
+      
     </div>
   );
 };

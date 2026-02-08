@@ -1,7 +1,7 @@
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { HelpButton } from '@/components/HelpButton';
+
 
 const EarnMore = () => {
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ const EarnMore = () => {
         </Button>
       </main>
 
-      <HelpButton />
+      
     </div>
   );
 };
