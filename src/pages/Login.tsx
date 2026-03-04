@@ -105,7 +105,14 @@ const Login = () => {
     }`;
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      {/* Decorative orbs */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden -z-10">
+        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[hsl(270_72%_58%/0.15)] blur-3xl float-orb" />
+        <div className="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-[hsl(240_80%_55%/0.12)] blur-3xl float-orb" style={{animationDelay:'3s'}} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-[hsl(280_65%_60%/0.07)] blur-2xl float-orb" style={{animationDelay:'1.5s'}} />
+      </div>
+
       {/* Header */}
       <header className="flex justify-end p-4">
         <NeedHelp />
@@ -113,7 +120,7 @@ const Login = () => {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center px-4 pb-20">
-        <div className="w-full max-w-md animate-[slide-in-right_0.5s_ease-out]">
+        <div className="w-full max-w-md animate-[slide-in-right_0.5s_ease-out] glass-card rounded-2xl p-8">
           {/* Logo - Right aligned */}
           <div className="mb-8">
             <img 
