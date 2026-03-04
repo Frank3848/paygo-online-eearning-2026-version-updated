@@ -181,9 +181,15 @@ const Home = () => {
   const isLastStep = currentStep === totalSteps;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
+      {/* Decorative ambient orbs */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden -z-10">
+        <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-[hsl(270_72%_58%/0.10)] blur-3xl float-orb" />
+        <div className="absolute top-1/3 -left-16 w-56 h-56 rounded-full bg-[hsl(240_80%_55%/0.08)] blur-2xl float-orb" style={{animationDelay:'2s'}} />
+      </div>
+
       {/* Header */}
-      <header className="py-4 flex justify-center bg-white">
+      <header className="py-4 flex justify-center bg-white/70 backdrop-blur-md border-b border-[hsl(270_50%_80%/0.2)] shadow-sm">
         <img 
           src={paygoLogo} 
           alt="PayGo Logo" 
@@ -266,7 +272,7 @@ const Home = () => {
               className="flex flex-col items-center gap-2"
               onClick={() => action.route && navigate(action.route)}
             >
-              <div className="w-14 h-14 bg-slate-100 rounded-xl flex items-center justify-center shadow-sm">
+              <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-sm border border-[hsl(270_50%_80%/0.2)]">
                 <action.IconComponent />
               </div>
               <span className="text-xs text-gray-600 font-medium text-center">{action.label}</span>
