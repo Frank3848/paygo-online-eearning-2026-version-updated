@@ -284,10 +284,10 @@ const Home = () => {
         <div className="mb-6">
           <h3 className="text-lg font-bold text-foreground mb-4">Current Promotions</h3>
           
-          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-purple-500">
+          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-purple-500 h-48">
             {/* Sliding track */}
             <div
-              className="flex transition-transform duration-500 ease-in-out"
+              className="flex h-full transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentPromo * 100}%)` }}
             >
               {promotions.map((promo, index) => (
@@ -295,7 +295,7 @@ const Home = () => {
                   key={index}
                   src={promo.image}
                   alt={`Promotion ${index + 1}`}
-                  className="w-full flex-shrink-0 h-auto object-contain"
+                  className="w-full flex-shrink-0 h-full object-cover"
                 />
               ))}
             </div>
