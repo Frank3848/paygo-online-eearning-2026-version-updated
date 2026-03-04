@@ -285,12 +285,20 @@ const Home = () => {
           <h3 className="text-lg font-bold text-foreground mb-4">Current Promotions</h3>
           
           <div className="relative rounded-2xl overflow-hidden shadow-lg bg-purple-500">
-            {/* Promo Image */}
-            <img 
-              src={promotions[currentPromo].image} 
-              alt={`Promotion ${currentPromo + 1}`}
-              className="w-full h-auto object-contain"
-            />
+            {/* Sliding track */}
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentPromo * 100}%)` }}
+            >
+              {promotions.map((promo, index) => (
+                <img
+                  key={index}
+                  src={promo.image}
+                  alt={`Promotion ${index + 1}`}
+                  className="w-full flex-shrink-0 h-auto object-contain"
+                />
+              ))}
+            </div>
 
             {/* Navigation Arrows */}
             <button 
