@@ -99,24 +99,16 @@ export default {
         "swing": {
           "0%": {
             transform: "translateX(calc(100vw + 100%))",
-            opacity: "0",
-          },
-          "5%": {
-            opacity: "1",
-          },
-          "95%": {
-            opacity: "1",
           },
           "100%": {
-            transform: "translateX(-100%)",
-            opacity: "0",
+            transform: "translateX(-200%)",
           },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "swing": "swing 4s ease-in-out infinite",
+        "swing": "swing 5s linear infinite",
       },
     },
   },
