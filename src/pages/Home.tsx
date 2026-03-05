@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 import { UpgradeDrawer } from '@/components/UpgradeDrawer';
+import { BottomNav } from '@/components/BottomNav';
 import paygoLogo from '@/assets/paygo-logo.png';
 import promoTransactWin from '@/assets/promo-transact-win.jpg';
 import promoBasketball from '@/assets/promo-basketball.jpg';
