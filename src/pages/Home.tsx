@@ -412,6 +412,9 @@ const Home = () => {
 
       {/* Upgrade Drawer */}
       <UpgradeDrawer open={showUpgradeDrawer} onOpenChange={setShowUpgradeDrawer} />
+
+      {/* Bottom Navigation */}
+      <BottomNav />
     </div>
   );
 };
