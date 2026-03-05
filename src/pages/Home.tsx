@@ -199,7 +199,7 @@ const Home = () => {
       </header>
 
       {/* Main Content - Dashboard */}
-      <main className="flex-1 px-4 pb-24">
+      <main className="flex-1 px-4 pb-28">
         {/* Balance Card */}
         <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl p-5 text-white mb-6 shadow-lg">
           <div className="flex items-center justify-between mb-3">
