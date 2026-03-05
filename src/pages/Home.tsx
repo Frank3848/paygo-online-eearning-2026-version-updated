@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 import { UpgradeDrawer } from '@/components/UpgradeDrawer';
+import { BottomNav } from '@/components/BottomNav';
 import paygoLogo from '@/assets/paygo-logo.png';
 import promoTransactWin from '@/assets/promo-transact-win.jpg';
 import promoBasketball from '@/assets/promo-basketball.jpg';
@@ -198,7 +199,7 @@ const Home = () => {
       </header>
 
       {/* Main Content - Dashboard */}
-      <main className="flex-1 px-4 pb-24">
+      <main className="flex-1 px-4 pb-28">
         {/* Balance Card */}
         <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl p-5 text-white mb-6 shadow-lg">
           <div className="flex items-center justify-between mb-3">
@@ -411,6 +412,9 @@ const Home = () => {
 
       {/* Upgrade Drawer */}
       <UpgradeDrawer open={showUpgradeDrawer} onOpenChange={setShowUpgradeDrawer} />
+
+      {/* Bottom Navigation */}
+      <BottomNav />
     </div>
   );
 };
