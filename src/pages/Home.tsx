@@ -292,26 +292,38 @@ const Home = () => {
         </div>
 
         {/* Quick Actions - 8 items in 2 rows */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
-          {quickActions.map((action, index) => (
-            <button 
-              key={index} 
-              className="flex flex-col items-center gap-2"
-              onClick={() => action.route && navigate(action.route)}
-            >
-              <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-sm border border-[hsl(270_50%_80%/0.2)]">
-                <action.IconComponent />
-              </div>
-              <span className="text-xs text-gray-600 font-medium text-center">{action.label}</span>
-            </button>
-          ))}
+        <div className="rounded-2xl p-4 mb-6 shadow-sm"
+          style={{background: 'hsl(0 0% 100% / 0.80)', backdropFilter: 'blur(16px)', border: '1px solid hsl(270 50% 80% / 0.20)'}}>
+          <div className="grid grid-cols-4 gap-3">
+            {quickActions.map((action, index) => (
+              <button 
+                key={index} 
+                className="flex flex-col items-center gap-2 group active:scale-95 transition-transform"
+                onClick={() => action.route && navigate(action.route)}
+              >
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-md transition-shadow group-hover:shadow-lg"
+                  style={{background: 'linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(260 30% 97%) 100%)', border: '1px solid hsl(270 40% 88% / 0.60)'}}>
+                  <action.IconComponent />
+                </div>
+                <span className="text-[11px] font-semibold text-center leading-tight"
+                  style={{color: 'hsl(250 20% 35%)'}}>{action.label}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Current Promotions */}
         <div className="mb-6">
-          <h3 className="text-lg font-bold text-foreground mb-4">Current Promotions</h3>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-base font-bold" style={{color: 'hsl(250 30% 20%)'}}>Current Promotions</h3>
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
+              style={{background: 'hsl(270 72% 58% / 0.12)', color: 'hsl(270 72% 42%)'}}>
+              {currentPromo + 1} / {promotions.length}
+            </span>
+          </div>
           
-          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-purple-500 h-48">
+          <div className="relative rounded-2xl overflow-hidden h-52"
+            style={{boxShadow: '0 8px 32px hsl(270 60% 40% / 0.20), 0 2px 8px hsl(0 0% 0% / 0.08)'}}>
             {/* Sliding track */}
             <div
               className="flex h-full transition-transform duration-500 ease-in-out"
@@ -327,16 +339,22 @@ const Home = () => {
               ))}
             </div>
 
+            {/* Gradient overlay for depth */}
+            <div className="absolute inset-0 pointer-events-none"
+              style={{background: 'linear-gradient(to bottom, transparent 50%, hsl(0 0% 0% / 0.25) 100%)'}} />
+
             {/* Navigation Arrows */}
             <button 
               onClick={prevPromo}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/50 transition-colors"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center transition-colors"
+              style={{background: 'hsl(0 0% 100% / 0.25)', backdropFilter: 'blur(8px)', border: '1px solid hsl(0 0% 100% / 0.30)'}}
             >
               <ChevronLeft className="h-5 w-5 text-white" />
             </button>
             <button 
               onClick={nextPromo}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/50 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center transition-colors"
+              style={{background: 'hsl(0 0% 100% / 0.25)', backdropFilter: 'blur(8px)', border: '1px solid hsl(0 0% 100% / 0.30)'}}
             >
               <ChevronRight className="h-5 w-5 text-white" />
             </button>
@@ -347,9 +365,13 @@ const Home = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentPromo(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                    index === currentPromo ? 'bg-white' : 'bg-white/50'
-                  }`}
+                  className="transition-all duration-300"
+                  style={{
+                    width: index === currentPromo ? '20px' : '8px',
+                    height: '8px',
+                    borderRadius: '4px',
+                    background: index === currentPromo ? 'white' : 'hsl(0 0% 100% / 0.50)'
+                  }}
                 />
               ))}
             </div>
