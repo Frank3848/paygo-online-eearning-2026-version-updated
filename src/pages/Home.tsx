@@ -435,6 +435,44 @@ const Home = () => {
             </div>
           </div>
         </div>
+
+        {/* Recent Transactions */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-base font-bold" style={{color: 'hsl(250 30% 20%)'}}>Recent Transactions</h3>
+            <button className="text-xs font-semibold" style={{color: 'hsl(270 72% 50%)'}}>See all</button>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden shadow-sm"
+            style={{background: 'hsl(0 0% 100% / 0.80)', backdropFilter: 'blur(16px)', border: '1px solid hsl(270 50% 80% / 0.20)'}}>
+            {transactions.map((tx, index) => {
+              const TxIcon = tx.icon;
+              return (
+                <div key={tx.id}
+                  className="flex items-center gap-3 px-4 py-3 active:bg-purple-50/50 transition-colors"
+                  style={{borderBottom: index < transactions.length - 1 ? '1px solid hsl(270 30% 92% / 0.60)' : 'none'}}>
+                  {/* Icon */}
+                  <div className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm"
+                    style={{background: tx.iconBg}}>
+                    <TxIcon size={18} style={{color: tx.iconColor}} />
+                  </div>
+
+                  {/* Details */}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold truncate" style={{color: 'hsl(250 25% 18%)'}}>{tx.title}</p>
+                    <p className="text-xs truncate mt-0.5" style={{color: 'hsl(250 15% 55%)'}}>{tx.subtitle}</p>
+                  </div>
+
+                  {/* Amount & Time */}
+                  <div className="text-right flex-shrink-0">
+                    <p className="text-sm font-bold" style={{color: tx.amountColor}}>{tx.amount}</p>
+                    <p className="text-[10px] mt-0.5" style={{color: 'hsl(250 15% 60%)'}}>{tx.time}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </main>
 
       {/* Onboarding Modal */}
