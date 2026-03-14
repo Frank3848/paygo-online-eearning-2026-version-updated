@@ -114,6 +114,64 @@ const promotions = [
   },
 ];
 
+const transactions = [
+  {
+    id: 1,
+    icon: ArrowUpRight,
+    iconBg: 'hsl(0 72% 96%)',
+    iconColor: 'hsl(0 72% 50%)',
+    title: 'Bank Transfer',
+    subtitle: 'To GTBank • ****4521',
+    amount: '-₦25,000',
+    amountColor: 'hsl(0 72% 50%)',
+    time: 'Today, 2:14 PM',
+  },
+  {
+    id: 2,
+    icon: ArrowDownLeft,
+    iconBg: 'hsl(142 72% 94%)',
+    iconColor: 'hsl(142 60% 35%)',
+    title: 'Transfer Received',
+    subtitle: 'From Emeka Obi',
+    amount: '+₦50,000',
+    amountColor: 'hsl(142 60% 35%)',
+    time: 'Today, 11:02 AM',
+  },
+  {
+    id: 3,
+    icon: Phone,
+    iconBg: 'hsl(210 80% 94%)',
+    iconColor: 'hsl(210 80% 45%)',
+    title: 'Airtime Purchase',
+    subtitle: 'MTN • 0803 456 7890',
+    amount: '-₦1,000',
+    amountColor: 'hsl(0 72% 50%)',
+    time: 'Yesterday, 6:45 PM',
+  },
+  {
+    id: 4,
+    icon: Wifi,
+    iconBg: 'hsl(270 72% 95%)',
+    iconColor: 'hsl(270 72% 50%)',
+    title: 'Data Bundle',
+    subtitle: 'Airtel • 5GB Plan',
+    amount: '-₦2,500',
+    amountColor: 'hsl(0 72% 50%)',
+    time: 'Yesterday, 3:30 PM',
+  },
+  {
+    id: 5,
+    icon: ShoppingBag,
+    iconBg: 'hsl(38 100% 93%)',
+    iconColor: 'hsl(38 92% 40%)',
+    title: 'Welcome Bonus',
+    subtitle: 'PayGo Rewards',
+    amount: '+₦180,000',
+    amountColor: 'hsl(142 60% 35%)',
+    time: 'Mar 12, 9:00 AM',
+  },
+];
+
 const Home = () => {
   const navigate = useNavigate();
   const [showOnboarding, setShowOnboarding] = useState(() => {
