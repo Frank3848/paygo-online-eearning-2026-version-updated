@@ -182,15 +182,32 @@ const Home = () => {
   const isLastStep = currentStep === totalSteps;
 
   return (
-    <div className="min-h-screen flex flex-col relative">
-      {/* Decorative ambient orbs */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden -z-10">
-        <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-[hsl(270_72%_58%/0.10)] blur-3xl float-orb" />
-        <div className="absolute top-1/3 -left-16 w-56 h-56 rounded-full bg-[hsl(240_80%_55%/0.08)] blur-2xl float-orb" style={{animationDelay:'2s'}} />
+    <div className="min-h-screen flex flex-col relative overflow-x-hidden" style={{background: 'hsl(250 30% 97%)'}}>
+
+      {/* === Rich layered background mesh === */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        {/* Base gradient wash */}
+        <div className="absolute inset-0"
+          style={{background: 'radial-gradient(ellipse 120% 80% at 50% -10%, hsl(270 72% 60% / 0.18) 0%, transparent 60%), radial-gradient(ellipse 80% 60% at 100% 30%, hsl(240 80% 55% / 0.12) 0%, transparent 55%), radial-gradient(ellipse 70% 50% at 0% 80%, hsl(290 65% 62% / 0.10) 0%, transparent 50%), radial-gradient(ellipse 100% 60% at 50% 100%, hsl(220 70% 60% / 0.08) 0%, transparent 50%)'}}
+        />
+        {/* Diagonal stripe texture */}
+        <div className="absolute inset-0 opacity-[0.025]"
+          style={{backgroundImage: 'repeating-linear-gradient(135deg, hsl(270 72% 50%) 0px, hsl(270 72% 50%) 1px, transparent 1px, transparent 40px)'}}
+        />
+        {/* Floating orbs */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full float-orb"
+          style={{background: 'radial-gradient(circle, hsl(270 72% 58% / 0.22) 0%, transparent 70%)', filter: 'blur(40px)'}} />
+        <div className="absolute top-1/2 -left-20 w-72 h-72 rounded-full float-orb"
+          style={{background: 'radial-gradient(circle, hsl(240 80% 55% / 0.16) 0%, transparent 70%)', filter: 'blur(32px)', animationDelay: '2s'}} />
+        <div className="absolute bottom-32 right-0 w-64 h-64 rounded-full float-orb"
+          style={{background: 'radial-gradient(circle, hsl(290 65% 60% / 0.14) 0%, transparent 70%)', filter: 'blur(28px)', animationDelay: '4s'}} />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-80 h-80 rounded-full float-orb"
+          style={{background: 'radial-gradient(circle, hsl(260 70% 55% / 0.08) 0%, transparent 70%)', filter: 'blur(50px)', animationDelay: '1s'}} />
       </div>
 
       {/* Header */}
-      <header className="py-4 flex justify-center bg-white/70 backdrop-blur-md border-b border-[hsl(270_50%_80%/0.2)] shadow-sm">
+      <header className="py-4 flex justify-center backdrop-blur-md border-b shadow-sm"
+        style={{background: 'hsl(0 0% 100% / 0.72)', borderColor: 'hsl(270 50% 70% / 0.20)'}}>
         <img 
           src={paygoLogo} 
           alt="PayGo Logo" 
@@ -199,9 +216,18 @@ const Home = () => {
       </header>
 
       {/* Main Content - Dashboard */}
-      <main className="flex-1 px-4 pb-28">
+      <main className="flex-1 px-4 pb-28 pt-4">
         {/* Balance Card */}
-        <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl p-5 text-white mb-6 shadow-lg">
+        <div className="rounded-2xl p-5 text-white mb-6 shadow-2xl relative overflow-hidden"
+          style={{background: 'linear-gradient(135deg, hsl(270 72% 38%) 0%, hsl(262 80% 30%) 40%, hsl(250 85% 25%) 100%)'}}>
+          {/* Card inner shimmer orbs */}
+          <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full opacity-30"
+            style={{background: 'radial-gradient(circle, hsl(280 80% 80%) 0%, transparent 70%)', filter: 'blur(20px)'}} />
+          <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full opacity-20"
+            style={{background: 'radial-gradient(circle, hsl(240 80% 70%) 0%, transparent 70%)', filter: 'blur(16px)'}} />
+          {/* Subtle dot grid overlay */}
+          <div className="absolute inset-0 opacity-10"
+            style={{backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '18px 18px'}} />
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
               <button 
@@ -266,26 +292,38 @@ const Home = () => {
         </div>
 
         {/* Quick Actions - 8 items in 2 rows */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
-          {quickActions.map((action, index) => (
-            <button 
-              key={index} 
-              className="flex flex-col items-center gap-2"
-              onClick={() => action.route && navigate(action.route)}
-            >
-              <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-sm border border-[hsl(270_50%_80%/0.2)]">
-                <action.IconComponent />
-              </div>
-              <span className="text-xs text-gray-600 font-medium text-center">{action.label}</span>
-            </button>
-          ))}
+        <div className="rounded-2xl p-4 mb-6 shadow-sm"
+          style={{background: 'hsl(0 0% 100% / 0.80)', backdropFilter: 'blur(16px)', border: '1px solid hsl(270 50% 80% / 0.20)'}}>
+          <div className="grid grid-cols-4 gap-3">
+            {quickActions.map((action, index) => (
+              <button 
+                key={index} 
+                className="flex flex-col items-center gap-2 group active:scale-95 transition-transform"
+                onClick={() => action.route && navigate(action.route)}
+              >
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-md transition-shadow group-hover:shadow-lg"
+                  style={{background: 'linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(260 30% 97%) 100%)', border: '1px solid hsl(270 40% 88% / 0.60)'}}>
+                  <action.IconComponent />
+                </div>
+                <span className="text-[11px] font-semibold text-center leading-tight"
+                  style={{color: 'hsl(250 20% 35%)'}}>{action.label}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Current Promotions */}
         <div className="mb-6">
-          <h3 className="text-lg font-bold text-foreground mb-4">Current Promotions</h3>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-base font-bold" style={{color: 'hsl(250 30% 20%)'}}>Current Promotions</h3>
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
+              style={{background: 'hsl(270 72% 58% / 0.12)', color: 'hsl(270 72% 42%)'}}>
+              {currentPromo + 1} / {promotions.length}
+            </span>
+          </div>
           
-          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-purple-500 h-48">
+          <div className="relative rounded-2xl overflow-hidden h-52"
+            style={{boxShadow: '0 8px 32px hsl(270 60% 40% / 0.20), 0 2px 8px hsl(0 0% 0% / 0.08)'}}>
             {/* Sliding track */}
             <div
               className="flex h-full transition-transform duration-500 ease-in-out"
@@ -301,16 +339,22 @@ const Home = () => {
               ))}
             </div>
 
+            {/* Gradient overlay for depth */}
+            <div className="absolute inset-0 pointer-events-none"
+              style={{background: 'linear-gradient(to bottom, transparent 50%, hsl(0 0% 0% / 0.25) 100%)'}} />
+
             {/* Navigation Arrows */}
             <button 
               onClick={prevPromo}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/50 transition-colors"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center transition-colors"
+              style={{background: 'hsl(0 0% 100% / 0.25)', backdropFilter: 'blur(8px)', border: '1px solid hsl(0 0% 100% / 0.30)'}}
             >
               <ChevronLeft className="h-5 w-5 text-white" />
             </button>
             <button 
               onClick={nextPromo}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/50 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center transition-colors"
+              style={{background: 'hsl(0 0% 100% / 0.25)', backdropFilter: 'blur(8px)', border: '1px solid hsl(0 0% 100% / 0.30)'}}
             >
               <ChevronRight className="h-5 w-5 text-white" />
             </button>
@@ -321,9 +365,13 @@ const Home = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentPromo(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                    index === currentPromo ? 'bg-white' : 'bg-white/50'
-                  }`}
+                  className="transition-all duration-300"
+                  style={{
+                    width: index === currentPromo ? '20px' : '8px',
+                    height: '8px',
+                    borderRadius: '4px',
+                    background: index === currentPromo ? 'white' : 'hsl(0 0% 100% / 0.50)'
+                  }}
                 />
               ))}
             </div>
