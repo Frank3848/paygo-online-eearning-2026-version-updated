@@ -3,11 +3,11 @@ import { Home, ArrowUpRight, User, Zap, Headphones } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { icon: Home, label: 'Home', route: '/home' },
-  { icon: ArrowUpRight, label: 'Transfer', route: '/transfer' },
-  { icon: Zap, label: 'Earn', route: '/earn-more' },
-  { icon: Headphones, label: 'Support', route: '/support' },
-  { icon: User, label: 'Profile', route: '/profile' },
+  { icon: Home, label: 'Home', route: '/home', badge: false },
+  { icon: ArrowUpRight, label: 'Transfer', route: '/transfer', badge: false },
+  { icon: Zap, label: 'Earn', route: '/earn-more', badge: false },
+  { icon: Headphones, label: 'Support', route: '/support', badge: true },
+  { icon: User, label: 'Profile', route: '/profile', badge: false },
 ];
 
 export const BottomNav = () => {
