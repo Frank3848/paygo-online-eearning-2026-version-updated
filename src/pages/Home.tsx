@@ -457,6 +457,74 @@ const Home = () => {
         </DialogContent>
       </Dialog>
 
+const transactions = [
+  {
+    id: 1,
+    type: 'debit',
+    icon: ArrowUpRight,
+    iconBg: 'hsl(0 72% 96%)',
+    iconColor: 'hsl(0 72% 50%)',
+    title: 'Bank Transfer',
+    subtitle: 'To GTBank • ****4521',
+    amount: '-₦25,000',
+    amountColor: 'hsl(0 72% 50%)',
+    time: 'Today, 2:14 PM',
+    status: 'success',
+  },
+  {
+    id: 2,
+    type: 'credit',
+    icon: ArrowDownLeft,
+    iconBg: 'hsl(142 72% 94%)',
+    iconColor: 'hsl(142 60% 35%)',
+    title: 'Transfer Received',
+    subtitle: 'From Emeka Obi',
+    amount: '+₦50,000',
+    amountColor: 'hsl(142 60% 35%)',
+    time: 'Today, 11:02 AM',
+    status: 'success',
+  },
+  {
+    id: 3,
+    type: 'debit',
+    icon: Phone,
+    iconBg: 'hsl(210 80% 94%)',
+    iconColor: 'hsl(210 80% 45%)',
+    title: 'Airtime Purchase',
+    subtitle: 'MTN • 0803 456 7890',
+    amount: '-₦1,000',
+    amountColor: 'hsl(0 72% 50%)',
+    time: 'Yesterday, 6:45 PM',
+    status: 'success',
+  },
+  {
+    id: 4,
+    type: 'debit',
+    icon: Wifi,
+    iconBg: 'hsl(270 72% 95%)',
+    iconColor: 'hsl(270 72% 50%)',
+    title: 'Data Bundle',
+    subtitle: 'Airtel • 5GB Plan',
+    amount: '-₦2,500',
+    amountColor: 'hsl(0 72% 50%)',
+    time: 'Yesterday, 3:30 PM',
+    status: 'success',
+  },
+  {
+    id: 5,
+    type: 'credit',
+    icon: ShoppingBag,
+    iconBg: 'hsl(38 100% 93%)',
+    iconColor: 'hsl(38 92% 40%)',
+    title: 'Welcome Bonus',
+    subtitle: 'PayGo Rewards',
+    amount: '+₦180,000',
+    amountColor: 'hsl(142 60% 35%)',
+    time: 'Mar 12, 9:00 AM',
+    status: 'success',
+  },
+];
+
 
       {/* Upgrade Drawer */}
       <UpgradeDrawer open={showUpgradeDrawer} onOpenChange={setShowUpgradeDrawer} />
