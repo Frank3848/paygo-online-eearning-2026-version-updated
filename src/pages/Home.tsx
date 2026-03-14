@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, ArrowUpRight, Bell, LogOut, Check, User } from 'lucide-react';
+import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, ArrowUpRight, Bell, LogOut, Check, User, ArrowDownLeft, Wifi, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
@@ -111,6 +111,64 @@ const promotions = [
   {
     id: 3,
     image: promoAirtime,
+  },
+];
+
+const transactions = [
+  {
+    id: 1,
+    icon: ArrowUpRight,
+    iconBg: 'hsl(0 72% 96%)',
+    iconColor: 'hsl(0 72% 50%)',
+    title: 'Bank Transfer',
+    subtitle: 'To GTBank • ****4521',
+    amount: '-₦25,000',
+    amountColor: 'hsl(0 72% 50%)',
+    time: 'Today, 2:14 PM',
+  },
+  {
+    id: 2,
+    icon: ArrowDownLeft,
+    iconBg: 'hsl(142 72% 94%)',
+    iconColor: 'hsl(142 60% 35%)',
+    title: 'Transfer Received',
+    subtitle: 'From Emeka Obi',
+    amount: '+₦50,000',
+    amountColor: 'hsl(142 60% 35%)',
+    time: 'Today, 11:02 AM',
+  },
+  {
+    id: 3,
+    icon: Phone,
+    iconBg: 'hsl(210 80% 94%)',
+    iconColor: 'hsl(210 80% 45%)',
+    title: 'Airtime Purchase',
+    subtitle: 'MTN • 0803 456 7890',
+    amount: '-₦1,000',
+    amountColor: 'hsl(0 72% 50%)',
+    time: 'Yesterday, 6:45 PM',
+  },
+  {
+    id: 4,
+    icon: Wifi,
+    iconBg: 'hsl(270 72% 95%)',
+    iconColor: 'hsl(270 72% 50%)',
+    title: 'Data Bundle',
+    subtitle: 'Airtel • 5GB Plan',
+    amount: '-₦2,500',
+    amountColor: 'hsl(0 72% 50%)',
+    time: 'Yesterday, 3:30 PM',
+  },
+  {
+    id: 5,
+    icon: ShoppingBag,
+    iconBg: 'hsl(38 100% 93%)',
+    iconColor: 'hsl(38 92% 40%)',
+    title: 'Welcome Bonus',
+    subtitle: 'PayGo Rewards',
+    amount: '+₦180,000',
+    amountColor: 'hsl(142 60% 35%)',
+    time: 'Mar 12, 9:00 AM',
   },
 ];
 
@@ -375,6 +433,44 @@ const Home = () => {
                 />
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Recent Transactions */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-base font-bold" style={{color: 'hsl(250 30% 20%)'}}>Recent Transactions</h3>
+            <button className="text-xs font-semibold" style={{color: 'hsl(270 72% 50%)'}}>See all</button>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden shadow-sm"
+            style={{background: 'hsl(0 0% 100% / 0.80)', backdropFilter: 'blur(16px)', border: '1px solid hsl(270 50% 80% / 0.20)'}}>
+            {transactions.map((tx, index) => {
+              const TxIcon = tx.icon;
+              return (
+                <div key={tx.id}
+                  className="flex items-center gap-3 px-4 py-3 active:bg-purple-50/50 transition-colors"
+                  style={{borderBottom: index < transactions.length - 1 ? '1px solid hsl(270 30% 92% / 0.60)' : 'none'}}>
+                  {/* Icon */}
+                  <div className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm"
+                    style={{background: tx.iconBg}}>
+                    <TxIcon size={18} style={{color: tx.iconColor}} />
+                  </div>
+
+                  {/* Details */}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold truncate" style={{color: 'hsl(250 25% 18%)'}}>{tx.title}</p>
+                    <p className="text-xs truncate mt-0.5" style={{color: 'hsl(250 15% 55%)'}}>{tx.subtitle}</p>
+                  </div>
+
+                  {/* Amount & Time */}
+                  <div className="text-right flex-shrink-0">
+                    <p className="text-sm font-bold" style={{color: tx.amountColor}}>{tx.amount}</p>
+                    <p className="text-[10px] mt-0.5" style={{color: 'hsl(250 15% 60%)'}}>{tx.time}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </main>
