@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { ArrowDownLeft, ArrowUpRight as TxArrowUp, Phone, Wifi, ShoppingBag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, ArrowUpRight, Bell, LogOut, Check, User } from 'lucide-react';
+import { Gift, X, CreditCard, Phone, Wallet, Zap, HelpCircle, Eye, EyeOff, Users, ChevronRight, ChevronLeft, ArrowUpRight, Bell, LogOut, Check, User, ArrowDownLeft, Wifi, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
