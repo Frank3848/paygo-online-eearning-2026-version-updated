@@ -3,11 +3,11 @@ import { Home, ArrowUpRight, User, Zap, Headphones } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { icon: Home, label: 'Home', route: '/home' },
-  { icon: ArrowUpRight, label: 'Transfer', route: '/transfer' },
-  { icon: Zap, label: 'Earn', route: '/earn-more' },
-  { icon: Headphones, label: 'Support', route: '/support' },
-  { icon: User, label: 'Profile', route: '/profile' },
+  { icon: Home, label: 'Home', route: '/home', badge: false },
+  { icon: ArrowUpRight, label: 'Transfer', route: '/transfer', badge: false },
+  { icon: Zap, label: 'Earn', route: '/earn-more', badge: false },
+  { icon: Headphones, label: 'Support', route: '/support', badge: true },
+  { icon: User, label: 'Profile', route: '/profile', badge: false },
 ];
 
 export const BottomNav = () => {
@@ -20,7 +20,7 @@ export const BottomNav = () => {
       <div className="absolute inset-0 bg-white/90 backdrop-blur-2xl border-t border-purple-100/60" />
       
       <div className="relative flex items-center justify-around px-2 pt-2 pb-4 max-w-lg mx-auto">
-        {navItems.map(({ icon: Icon, label, route }) => {
+        {navItems.map(({ icon: Icon, label, route, badge }) => {
           const isActive = location.pathname === route;
           return (
             <button
@@ -35,7 +35,7 @@ export const BottomNav = () => {
 
               {/* Icon container */}
               <div className={cn(
-                "w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-300",
+                "relative w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-300",
                 isActive
                   ? "bg-gradient-to-br from-purple-500 to-violet-600 shadow-[0_6px_16px_rgba(139,92,246,0.45)] scale-110"
                   : "bg-transparent group-active:scale-95"
@@ -44,6 +44,10 @@ export const BottomNav = () => {
                   "transition-all duration-300",
                   isActive ? "h-5 w-5 text-white" : "h-5 w-5 text-gray-400 group-hover:text-purple-400"
                 )} />
+                {/* Notification badge dot */}
+                {badge && (
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500 ring-2 ring-white animate-pulse" />
+                )}
               </div>
 
               {/* Label */}
