@@ -32,7 +32,7 @@ const banks = [
 const Transfer = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [transferType, setTransferType] = useState<'bank' | 'paygo' | null>(null);
+  const [transferType, setTransferType] = useState<'bank' | 'paygo' | null>('bank');
   const [accountName, setAccountName] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
   const [selectedBank, setSelectedBank] = useState('Access Bank');
