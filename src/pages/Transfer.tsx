@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Building2, Users, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Building2, Users, ChevronRight, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,126 +17,87 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
 
-const VALID_PAY_ID_CODE = "PG66761866";
+const VALID_PAY_ID_CODE = 'ID667618';
 
 const banks = [
-  'Access Bank',
-  'First Bank',
-  'GTBank',
-  'UBA',
-  'Zenith Bank',
-  'Kuda Bank',
-  'Opay',
-  'Palmpay',
-  'Moniepoint',
-  'Wema Bank',
-  'Sterling Bank',
-  'Fidelity Bank',
-  'FCMB',
-  'Union Bank',
-  'Ecobank',
-  'Stanbic IBTC',
-  'Standard Chartered',
-  'Polaris Bank',
-  'Keystone Bank',
-  'Unity Bank',
+  'Access Bank', 'First Bank', 'GTBank', 'UBA', 'Zenith Bank', 'Kuda Bank',
+  'OPay', 'Palmpay', 'Moniepoint', 'Wema Bank', 'Sterling Bank', 'Fidelity Bank',
+  'FCMB', 'Union Bank', 'Ecobank', 'Stanbic IBTC', 'Standard Chartered',
+  'Polaris Bank', 'Keystone Bank', 'Unity Bank',
 ];
 
 const Transfer = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [transferType, setTransferType] = useState<'bank' | 'paygo' | null>(null);
-  const [accountNumber, setAccountNumber] = useState('');
-  const [selectedBank, setSelectedBank] = useState('');
-  const [amount, setAmount] = useState('');
-  const [paygoId, setPaygoId] = useState('');
   const [accountName, setAccountName] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
+  const [selectedBank, setSelectedBank] = useState('Access Bank');
+  const [amount, setAmount] = useState('');
+  const [payIdCode, setPayIdCode] = useState('');
+  const [paygoId, setPaygoId] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
   const [showInvalidDialog, setShowInvalidDialog] = useState(false);
-  const [isVerifyingPayId, setIsVerifyingPayId] = useState(false);
-  const [balance] = useState(() => {
+
+  const balance = (() => {
     const saved = localStorage.getItem('walletBalance');
     return saved ? parseFloat(saved) : 180000;
-  });
+  })();
 
-  const handleVerifyAccount = () => {
-    if (accountNumber.length === 10 && selectedBank) {
-      setIsVerifying(true);
-      // Simulate account verification with realistic names
-      setTimeout(() => {
-        const firstNames = ['ADEBAYO', 'CHINEDU', 'OLUWASEUN', 'EMEKA', 'FATIMA', 'NGOZI', 'IBRAHIM', 'OLUMIDE', 'AISHA', 'CHIOMA'];
-        const lastNames = ['OKONKWO', 'ADEYEMI', 'IBRAHIM', 'MOHAMMED', 'JOHNSON', 'WILLIAMS', 'OKAFOR', 'BELLO', 'ABUBAKAR', 'OLAYINKA'];
-        const middleNames = ['CHIBUEZE', 'OLUWAFEMI', 'AMINU', 'CHIAMAKA', 'FOLAKE', 'UCHENNA', 'YUSUF', 'ADAEZE', 'KELECHI', 'FUNMILAYO'];
-        
-        // Use account number digits to select names consistently
-        const firstIndex = parseInt(accountNumber[0]) % firstNames.length;
-        const lastIndex = parseInt(accountNumber[1]) % lastNames.length;
-        const middleIndex = parseInt(accountNumber[2]) % middleNames.length;
-        
-        const generatedName = `${lastNames[lastIndex]} ${firstNames[firstIndex]} ${middleNames[middleIndex]}`;
-        setAccountName(generatedName);
-        setIsVerifying(false);
-      }, 1500);
+  const handleSubmit = () => {
+    if (!accountName.trim() || accountNumber.length !== 10 || !selectedBank || !amount || !payIdCode) {
+      toast({ title: 'Missing Information', description: 'Please fill in all fields correctly.', variant: 'destructive' });
+      return;
     }
+
+    const transferAmount = parseFloat(amount);
+    if (transferAmount > balance) {
+      toast({ title: 'Insufficient Balance', description: 'Amount exceeds your available balance.', variant: 'destructive' });
+      return;
+    }
+
+    setIsVerifying(true);
+    setTimeout(() => {
+      setIsVerifying(false);
+      if (payIdCode.trim().toUpperCase() !== VALID_PAY_ID_CODE) {
+        setShowInvalidDialog(true);
+        return;
+      }
+
+      const newBalance = balance - transferAmount;
+      localStorage.setItem('walletBalance', newBalance.toString());
+
+      navigate('/transfer/processing', {
+        state: {
+          amount,
+          accountName,
+          accountNumber,
+          selectedBank,
+          transferType: 'bank',
+        },
+      });
+    }, 2000);
   };
 
-  const handleTransfer = () => {
-    if (transferType === 'bank') {
-      if (!accountNumber || !selectedBank || !amount || !accountName) {
-        toast({
-          title: "Missing Information",
-          description: "Please fill in all required fields",
-          variant: "destructive",
-        });
-        return;
-      }
-      
-      // Validate PAY ID Code
-      if (paygoId.toUpperCase() !== VALID_PAY_ID_CODE) {
-        setIsVerifyingPayId(true);
-        setTimeout(() => {
-          setIsVerifyingPayId(false);
-          setShowInvalidDialog(true);
-        }, 2000);
-        return;
-      }
-    } else if (transferType === 'paygo') {
-      if (!paygoId || !amount) {
-        toast({
-          title: "Missing Information",
-          description: "Please fill in all required fields",
-          variant: "destructive",
-        });
-        return;
-      }
+  const handlePaygoTransfer = () => {
+    if (!paygoId || !amount) {
+      toast({ title: 'Missing Information', description: 'Please fill in all fields.', variant: 'destructive' });
+      return;
     }
-
-    // Deduct from balance in localStorage
-    const currentBalance = parseFloat(localStorage.getItem('walletBalance') || '180000');
     const transferAmount = parseFloat(amount);
-    const newBalance = currentBalance - transferAmount;
+    const newBalance = balance - transferAmount;
     localStorage.setItem('walletBalance', newBalance.toString());
-
-    // Navigate to processing page
-    navigate('/transfer/processing', { 
-      state: { 
-        amount, 
-        accountName, 
-        selectedBank, 
-        accountNumber,
-        transferType 
-      } 
+    navigate('/transfer/processing', {
+      state: { amount, accountName: paygoId, selectedBank: 'PayGo', accountNumber: paygoId, transferType: 'paygo' },
     });
   };
 
   const renderTransferOptions = () => (
-    <div className="space-y-4">
+    <div className="space-y-4 p-4">
       <h2 className="text-lg font-semibold text-foreground mb-4">Select Transfer Type</h2>
-      
       <button
         onClick={() => setTransferType('bank')}
         className="w-full bg-white rounded-xl p-4 flex items-center gap-4 shadow-sm border border-gray-100 hover:border-purple-200 transition-colors"
@@ -151,7 +111,6 @@ const Transfer = () => {
         </div>
         <ChevronRight className="h-5 w-5 text-gray-400" />
       </button>
-
       <button
         onClick={() => setTransferType('paygo')}
         className="w-full bg-white rounded-xl p-4 flex items-center gap-4 shadow-sm border border-gray-100 hover:border-purple-200 transition-colors"
@@ -169,142 +128,103 @@ const Transfer = () => {
   );
 
   const renderBankTransfer = () => (
-    <div className="space-y-5">
-      {/* Available Balance Card */}
-      <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl p-4 text-white">
-        <p className="text-sm opacity-90">Available Balance</p>
-        <p className="text-2xl font-bold">₦{balance.toLocaleString()}.00</p>
-      </div>
+    <div className="px-5 py-6">
+      <h2 className="text-2xl font-bold text-foreground mb-6">Bank Details</h2>
 
-      <div className="space-y-2">
-        <Label htmlFor="bank" className="text-foreground font-medium">Select Bank</Label>
+      <div className="space-y-4">
+        <Input
+          placeholder="Account Name"
+          value={accountName}
+          onChange={(e) => setAccountName(e.target.value.toUpperCase())}
+          className="h-14 bg-white border-gray-200 rounded-xl text-base placeholder:text-muted-foreground"
+        />
+
+        <Input
+          placeholder="Account Number (10 digits)"
+          value={accountNumber}
+          onChange={(e) => setAccountNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
+          inputMode="numeric"
+          className="h-14 bg-white border-gray-200 rounded-xl text-base placeholder:text-muted-foreground"
+        />
+
         <Select value={selectedBank} onValueChange={setSelectedBank}>
-          <SelectTrigger className="h-12 bg-white">
-            <SelectValue placeholder="Choose a bank" />
+          <SelectTrigger className="h-14 bg-white border-gray-200 rounded-xl text-base">
+            <SelectValue placeholder="Select Bank" />
           </SelectTrigger>
-          <SelectContent className="max-h-60">
-            {banks.map((bank) => (
-              <SelectItem key={bank} value={bank}>
-                {bank}
-              </SelectItem>
+          <SelectContent className="max-h-72">
+            {banks.map((b) => (
+              <SelectItem key={b} value={b}>{b}</SelectItem>
             ))}
           </SelectContent>
         </Select>
-      </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="accountNumber" className="text-foreground font-medium">Account Number</Label>
         <Input
-          id="accountNumber"
-          type="text"
-          placeholder="Enter account number"
-          value={accountNumber}
-          onChange={(e) => {
-            const value = e.target.value.replace(/\D/g, '').slice(0, 10);
-            setAccountNumber(value);
-          }}
-          className="h-12 bg-white"
-          maxLength={10}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="accountName" className="text-foreground font-medium">Account Name</Label>
-        <Input
-          id="accountName"
-          type="text"
-          placeholder="Enter account name"
-          value={accountName}
-          onChange={(e) => setAccountName(e.target.value.toUpperCase())}
-          className="h-12 bg-white"
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="amount" className="text-foreground font-medium">Amount</Label>
-        <Input
-          id="amount"
-          type="text"
-          placeholder="Enter amount"
+          placeholder="Amount"
           value={amount}
-          onChange={(e) => {
-            const value = e.target.value.replace(/\D/g, '');
-            setAmount(value);
-          }}
-          className="h-12 bg-white"
+          onChange={(e) => setAmount(e.target.value.replace(/\D/g, ''))}
+          inputMode="numeric"
+          className="h-14 bg-white border-gray-200 rounded-xl text-base placeholder:text-muted-foreground"
         />
+
+        <div>
+          <Input
+            placeholder="PAY ID CODE (Buy PAY ID)"
+            value={payIdCode}
+            onChange={(e) => setPayIdCode(e.target.value.toUpperCase())}
+            className="h-14 bg-white border-gray-200 rounded-xl text-base placeholder:text-muted-foreground"
+          />
+          <button
+            onClick={() => navigate('/buy-pay-id')}
+            className="text-[hsl(var(--paygo-purple))] font-semibold text-sm mt-2 hover:underline"
+          >
+            Buy PAY ID code
+          </button>
+        </div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="payIdCode" className="text-foreground font-medium">PAY ID Code</Label>
-        <Input
-          id="payIdCode"
-          type="text"
-          placeholder="Enter PAY ID Code"
-          value={paygoId}
-          onChange={(e) => setPaygoId(e.target.value.toUpperCase())}
-          className="h-12 bg-white"
-        />
-        <p className="text-xs text-muted-foreground">Enter your PAY ID code to authorize withdrawal</p>
-      </div>
+      <p className="text-foreground font-bold text-lg mt-6">
+        Available Balance: ₦{balance.toLocaleString()}.00
+      </p>
 
       <Button
-        onClick={handleTransfer}
-        disabled={!accountName || !amount || !selectedBank || !accountNumber || isVerifyingPayId}
-        className="w-full h-14 text-lg font-semibold rounded-xl bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-lg mt-6"
+        onClick={handleSubmit}
+        disabled={isVerifying}
+        className="w-full h-14 text-lg font-semibold rounded-2xl bg-[hsl(var(--paygo-purple))] hover:bg-purple-700 text-white shadow-lg mt-6"
       >
-        {isVerifyingPayId ? (
-          <>
-            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-            Verifying...
-          </>
+        {isVerifying ? (
+          <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Verifying...</>
         ) : (
-          'Transfer Money'
+          'Submit'
         )}
       </Button>
     </div>
   );
 
   const renderPaygoTransfer = () => (
-    <div className="space-y-5">
+    <div className="px-5 py-6 space-y-4">
       <div className="bg-green-50 border border-green-200 rounded-xl p-4">
         <p className="text-green-800 text-sm">
           <span className="font-semibold">Free Transfer!</span> Transfers to PayGo users are instant and free of charge.
         </p>
       </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="paygoId" className="text-foreground font-medium">PayGo ID</Label>
-        <Input
-          id="paygoId"
-          type="text"
-          placeholder="Enter recipient's PayGo ID"
-          value={paygoId}
-          onChange={(e) => setPaygoId(e.target.value.toUpperCase())}
-          className="h-12 bg-white"
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="paygoAmount" className="text-foreground font-medium">Amount (₦)</Label>
-        <Input
-          id="paygoAmount"
-          type="text"
-          placeholder="Enter amount"
-          value={amount}
-          onChange={(e) => {
-            const value = e.target.value.replace(/\D/g, '');
-            setAmount(value);
-          }}
-          className="h-12 bg-white"
-        />
-        <p className="text-xs text-muted-foreground">Available Balance: ₦{balance.toLocaleString()}.00</p>
-      </div>
-
+      <Input
+        placeholder="Recipient's PayGo ID"
+        value={paygoId}
+        onChange={(e) => setPaygoId(e.target.value.toUpperCase())}
+        className="h-14 bg-white border-gray-200 rounded-xl text-base"
+      />
+      <Input
+        placeholder="Amount (₦)"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value.replace(/\D/g, ''))}
+        inputMode="numeric"
+        className="h-14 bg-white border-gray-200 rounded-xl text-base"
+      />
+      <p className="text-sm text-muted-foreground">Available Balance: ₦{balance.toLocaleString()}.00</p>
       <Button
-        onClick={handleTransfer}
+        onClick={handlePaygoTransfer}
         disabled={!paygoId || !amount}
-        className="w-full h-14 text-lg font-semibold rounded-xl bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-lg mt-6"
+        className="w-full h-14 text-lg font-semibold rounded-2xl bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-lg"
       >
         Transfer ₦{amount ? Number(amount).toLocaleString() : '0'}
       </Button>
@@ -312,29 +232,25 @@ const Transfer = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* Header */}
-      <header className="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 flex items-center gap-4">
-        <button 
-          onClick={() => transferType ? setTransferType(null) : navigate('/home')}
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <header className="bg-[hsl(var(--paygo-purple))] text-white px-4 py-4 flex items-center gap-4">
+        <button
+          onClick={() => (transferType ? setTransferType(null) : navigate('/home'))}
           className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
         >
           <ArrowLeft className="h-6 w-6" />
         </button>
         <h1 className="text-xl font-bold">
-          {transferType === 'bank' ? 'Bank Transfer' : 
-           transferType === 'paygo' ? 'PayGo Transfer' : 'Transfer'}
+          {transferType === 'bank' ? 'Transfer To Bank' : transferType === 'paygo' ? 'PayGo Transfer' : 'Transfer'}
         </h1>
       </header>
 
-      {/* Content */}
-      <main className="flex-1 p-4">
+      <main className="flex-1">
         {!transferType && renderTransferOptions()}
         {transferType === 'bank' && renderBankTransfer()}
         {transferType === 'paygo' && renderPaygoTransfer()}
       </main>
 
-      {/* Invalid PAY ID Dialog */}
       <AlertDialog open={showInvalidDialog} onOpenChange={setShowInvalidDialog}>
         <AlertDialogContent className="max-w-[320px] mx-auto rounded-2xl p-6">
           <AlertDialogTitle className="sr-only">Invalid PAY ID Code</AlertDialogTitle>
@@ -342,7 +258,7 @@ const Transfer = () => {
             Invalid PAY ID Code. Please enter a valid PAY ID to proceed with withdrawal.
           </AlertDialogDescription>
           <AlertDialogFooter className="justify-center sm:justify-center mt-4">
-            <AlertDialogAction 
+            <AlertDialogAction
               onClick={() => setShowInvalidDialog(false)}
               className="bg-transparent text-teal-500 hover:bg-transparent hover:text-teal-600 font-semibold text-lg shadow-none"
             >
